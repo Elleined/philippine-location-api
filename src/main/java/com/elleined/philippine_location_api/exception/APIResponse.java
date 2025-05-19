@@ -1,4 +1,4 @@
-package com.elleined.philippine_location_api;
+package com.elleined.philippine_location_api.exception;
 
 import org.springframework.http.HttpStatus;
 

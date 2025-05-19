@@ -1,8 +1,5 @@
-package com.elleined.philippine_location_api;
+package com.elleined.philippine_location_api.exception;
 
-import com.elleined.philippine_location_api.exception.PhilippineLocationAPIException;
-import com.elleined.philippine_location_api.exception.resource.ResourceException;
-import com.elleined.philippine_location_api.exception.resource.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -14,18 +11,6 @@ import java.util.List;
 
 @ControllerAdvice
 public class ExceptionController {
-
-    @ExceptionHandler(ResourceException.class)
-    public ResponseEntity<APIResponse> handleResourceException(ResourceException ex) {
-        var responseMessage = new APIResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<APIResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        var responseMessage = new APIResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
-    }
 
     @ExceptionHandler(PhilippineLocationAPIException.class)
     public ResponseEntity<APIResponse> handlePhilippineLocationAPIException(PhilippineLocationAPIException ex) {
