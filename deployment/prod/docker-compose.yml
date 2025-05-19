@@ -11,6 +11,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - PORT=${PLA_PORT}
       - LOG_LEVEL=${LOG_LEVEL}
+      - ALLOWED_ORIGINS=${PLA_ALLOWED_ORIGINS}
     ports:
       - "${PLA_PORT}:${PLA_PORT}"
     networks:
