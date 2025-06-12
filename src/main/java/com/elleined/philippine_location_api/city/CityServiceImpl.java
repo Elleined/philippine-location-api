@@ -22,34 +22,34 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
     @Override
-    public List<City> getAll(@Positive int regionId,
-                             @Positive int provinceId) {
+    public List<City> getAll(int regionId,
+                             int provinceId) {
 
         return cityRepository.findAll(regionId, provinceId);
     }
 
     @Override
-    public Page<City> getAll(@Positive int regionId,
-                             @Positive int provinceId,
-                             @NotNull PageRequest request) {
+    public Page<City> getAll(int regionId,
+                             int provinceId,
+                             PageRequest request) {
 
         List<City> cities = cityRepository.findAll(regionId, provinceId, request.getOffset(), request.size());
         return new Page<>(cities, request, cityRepository.findAllTotal(regionId, provinceId));
     }
 
     @Override
-    public List<City> searchByName(@Positive int regionId,
-                                   @Positive int provinceId,
-                                   @NotBlank String name) {
+    public List<City> searchByName(int regionId,
+                                   int provinceId,
+                                   String name) {
 
         return cityRepository.searchByName(regionId, provinceId, name);
     }
 
     @Override
-    public Page<City> searchByName(@Positive int regionId,
-                                   @Positive int provinceId,
-                                   @NotBlank String name,
-                                   @NotNull PageRequest request) {
+    public Page<City> searchByName(int regionId,
+                                   int provinceId,
+                                   String name,
+                                   PageRequest request) {
 
         List<City> cities = cityRepository.searchByName(regionId, provinceId, name, request.getOffset(), request.size());
         return new Page<>(cities, request, cityRepository.searchByNameTotal(regionId, provinceId, name));
