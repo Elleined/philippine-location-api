@@ -7,7 +7,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
+      - "${MYSQL_HOST_PORT}:${MYSQL_PORT}"
     networks:
       - pla-network
     volumes:
