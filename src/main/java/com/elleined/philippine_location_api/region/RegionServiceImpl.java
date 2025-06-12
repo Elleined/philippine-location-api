@@ -26,19 +26,19 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public Page<Region> getAll(@NotNull PageRequest request) {
+    public Page<Region> getAll(PageRequest request) {
         List<Region> regions = regionRepository.findAll(request.getOffset(), request.size());
         return new Page<>(regions, request, regionRepository.findAllTotal());
     }
 
     @Override
-    public List<Region> searchByName(@NotBlank String name) {
+    public List<Region> searchByName(String name) {
         return regionRepository.searchByName(name);
     }
 
     @Override
-    public Page<Region> searchByName(@NotBlank String name,
-                                     @NotNull PageRequest request) {
+    public Page<Region> searchByName(String name,
+                                     PageRequest request) {
 
         List<Region> regions = regionRepository.searchByName(name, request.getOffset(), request.size());
         return new Page<>(regions, request, regionRepository.searchByNameTotal(name));

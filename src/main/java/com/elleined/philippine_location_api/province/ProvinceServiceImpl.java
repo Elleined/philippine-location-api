@@ -22,29 +22,29 @@ public class ProvinceServiceImpl implements ProvinceService {
     private final ProvinceRepository provinceRepository;
 
     @Override
-    public List<Province> getAll(@Positive int regionId) {
+    public List<Province> getAll(int regionId) {
         return provinceRepository.findAll(regionId);
     }
 
     @Override
-    public Page<Province> getAll(@Positive int regionId,
-                                 @NotNull PageRequest request) {
+    public Page<Province> getAll(int regionId,
+                                 PageRequest request) {
 
         List<Province> provinces = provinceRepository.findAll(regionId, request.getOffset(), request.size());
         return new Page<>(provinces, request, provinceRepository.findAllTotal(regionId));
     }
 
     @Override
-    public List<Province> searchByName(@Positive int regionId,
-                                       @NotBlank String name) {
+    public List<Province> searchByName(int regionId,
+                                       String name) {
 
         return provinceRepository.searchByName(regionId, name);
     }
 
     @Override
-    public Page<Province> searchByName(@Positive int regionId,
-                                       @NotBlank String name,
-                                       @NotNull PageRequest request) {
+    public Page<Province> searchByName(int regionId,
+                                       String name,
+                                       PageRequest request) {
 
         List<Province> provinces = provinceRepository.searchByName(regionId, name, request.getOffset(), request.size());
         return new Page<>(provinces, request, provinceRepository.searchByNameTotal(regionId, name));

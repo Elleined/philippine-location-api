@@ -1,5 +1,6 @@
 package com.elleined.philippine_location_api.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -13,17 +14,25 @@ import java.util.List;
 public class ExceptionController {
 
     @ExceptionHandler(PhilippineLocationAPIException.class)
-    public ResponseEntity<APIResponse> handlePhilippineLocationAPIException(PhilippineLocationAPIException ex) {
-        var responseMessage = new APIResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handlePhilippineLocationAPIException(PhilippineLocationAPIException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BindException.class)
-    public ResponseEntity<List<APIResponse>> handleBindException(BindException ex) {
-        List<APIResponse> errors = ex.getBindingResult().getAllErrors().stream()
+    public ResponseEntity<List<String>> handleBindException(BindException ex) {
+        List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
-                .map(errorMessage -> new APIResponse(errorMessage, HttpStatus.BAD_REQUEST))
                 .toList();
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<List<String>> handleConstraintViolationException(ConstraintViolationException ex) {
+        List<String> errors = ex.getConstraintViolations().stream()
+                .map(violation -> String.format("%s: %s", violation.getPropertyPath().toString(), violation.getMessage()))
+                .toList();
+
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
