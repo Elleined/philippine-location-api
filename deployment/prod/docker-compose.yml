@@ -4,6 +4,7 @@ services:
     container_name: ${PLA_CONTAINER_NAME}
     restart: always
     environment:
+      - TZ=Asia/Manila
       - MYSQL_HOST=${MYSQL_CONTAINER_NAME}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
@@ -26,7 +27,7 @@ services:
       test: [ "CMD", "wget", "--spider", "http://${PLA_CONTAINER_NAME}:${PLA_PORT}/${PLA_CONTEXT_PATH}/actuator/health" ]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
       start_period: 30s
 
   mysql-server:
@@ -34,10 +35,11 @@ services:
     container_name: ${MYSQL_CONTAINER_NAME}
     restart: always
     environment:
+      - TZ=Asia/Manila
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "${MYSQL_OUTSIDE_PORT}:${MYSQL_PORT}"
+      - "${MYSQL_HOST_PORT}:${MYSQL_PORT}"
     networks:
       - pla-network
     volumes:
@@ -48,7 +50,7 @@ services:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER}", "--password=${MYSQL_PASSWORD}"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
       start_period: 30s
 
 volumes:

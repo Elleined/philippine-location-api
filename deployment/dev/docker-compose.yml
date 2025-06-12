@@ -3,10 +3,11 @@ services:
     image: mysql:${MYSQL_IMAGE_TAG}
     container_name: ${MYSQL_CONTAINER_NAME}
     environment:
+      - TZ=Asia/Manila
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "${MYSQL_OUTSIDE_PORT}:${MYSQL_PORT}"
+      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
     networks:
       - pla-network
     volumes:
