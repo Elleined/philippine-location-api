@@ -35,8 +35,7 @@ public interface RegionRepository extends CrudRepository<Region, Integer> {
     @Query("""
         SELECT *
         FROM region
-        WHERE name
-        LIKE CONCAT('%', :name, '%')
+        WHERE name LIKE CONCAT('%', :name, '%')
         ORDER BY name
         """)
     List<Region> searchByName(@Param("name") String name);
@@ -44,8 +43,7 @@ public interface RegionRepository extends CrudRepository<Region, Integer> {
     @Query("""
         SELECT *
         FROM region
-        WHERE name
-        LIKE CONCAT('%', :name, '%')
+        WHERE name LIKE CONCAT('%', :name, '%')
         ORDER BY name
         LIMIT :size
         OFFSET :page

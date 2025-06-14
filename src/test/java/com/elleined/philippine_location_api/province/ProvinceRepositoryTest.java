@@ -1,4 +1,4 @@
-package com.elleined.philippine_location_api.region;
+package com.elleined.philippine_location_api.province;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -6,21 +6,18 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.elleined.philippine_location_api.paging.Page;
+import com.elleined.philippine_location_api.region.Region;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.BadSqlGrammarException;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +25,10 @@ import java.util.List;
 @DataJdbcTest
 @TestPropertySource(locations = "classpath:.env.test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class RegionRepositoryTest {
+class ProvinceRepositoryTest {
 
     @Autowired
-    private RegionRepository regionRepository;
+    private ProvinceRepository provinceRepository;
 
     @Test
     void findAll_HappyPath() {
@@ -40,47 +37,50 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
+        int regionId = -1;
 
         // Set up method
 
         // Stubbing methods
 
         // Calling the method
-        List<Region> regions = assertDoesNotThrow(() -> regionRepository.findAll());
+        List<Province> provinces = assertDoesNotThrow(() -> provinceRepository.findAll(regionId));
 
-        List<Region> expected = new ArrayList<>(regions);
-        expected.sort(Comparator.comparing(Region::name));
+        List<Province> expected = new ArrayList<>(provinces);
+        expected.sort(Comparator.comparing(Province::name));
 
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, regions);
+        assertEquals(expected, provinces);
     }
 
     @Test
-    void findAllPage_HappyPath() {
+    void findAllPaged_HappyPath() {
         // Pre defined values
 
         // Expected Value
-        int page = 0;
-        int size = 10;
 
         // Mock data
+        int regionId = 1;
+        int page = 0;
+        int size = 10;
 
         // Set up method
 
         // Stubbing methods
 
         // Calling the method
-        List<Region> regions = assertDoesNotThrow(() -> regionRepository.findAll(page, size));
+        List<Province> provinces = assertDoesNotThrow(() -> provinceRepository.findAll(regionId, page, size));
+        provinces.forEach(System.out::println);
 
-        List<Region> expected = new ArrayList<>(regions);
-        expected.sort(Comparator.comparing(Region::name));
+        List<Province> expected = new ArrayList<>(provinces);
+        expected.sort(Comparator.comparing(Province::name));
 
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, regions);
+        assertEquals(expected, provinces);
     }
 
     @ParameterizedTest
@@ -94,13 +94,14 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
+        int regionId = 1;
 
         // Set up method
 
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> regionRepository.findAll(page, size));
+        assertThrowsExactly(BadSqlGrammarException.class, () -> provinceRepository.findAll(regionId, page, size));
 
         // Behavior Verifications
 
@@ -115,13 +116,14 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
+        int regionId = 1;
 
         // Set up method
 
         // Stubbing methods
 
         // Calling the method
-        int total = assertDoesNotThrow(() -> regionRepository.findAllTotal());
+        int total = assertDoesNotThrow(() -> provinceRepository.findAllTotal(regionId));
 
         // Behavior Verifications
 
@@ -136,6 +138,7 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
+        int regionId = 1;
         String name = "name".toLowerCase();
 
         // Set up method
@@ -143,21 +146,22 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        List<Region> regions = assertDoesNotThrow(() -> regionRepository.searchByName(name));
+        List<Province> provinces = assertDoesNotThrow(() -> provinceRepository.searchByName(regionId, name));
 
-        List<Region> expected = new ArrayList<>(regions);
-        expected.sort(Comparator.comparing(Region::name));
+        List<Province> expected = new ArrayList<>(provinces);
+        expected.sort(Comparator.comparing(Province::name));
 
-        boolean contains = regions.stream()
-                .map(Region::name)
+        boolean contains = provinces.stream()
+                .map(Province::name)
                 .map(String::toLowerCase)
                 .allMatch(n -> n.contains(name));
+
 
         // Behavior Verifications
 
         // Assertions
         assertTrue(contains);
-        assertEquals(expected, regions);
+        assertEquals(expected, provinces);
     }
 
     @Test
@@ -167,6 +171,7 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
+        int regionId = 1;
         String name = "name".toLowerCase();
         int page = 0;
         int size = 10;
@@ -176,21 +181,22 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        List<Region> regions = assertDoesNotThrow(() -> regionRepository.searchByName(name, page, size));
+        List<Province> provinces = assertDoesNotThrow(() -> provinceRepository.searchByName(regionId, name, page, size));
 
-        List<Region> expected = new ArrayList<>(regions);
-        expected.sort(Comparator.comparing(Region::name));
+        List<Province> expected = new ArrayList<>(provinces);
+        expected.sort(Comparator.comparing(Province::name));
 
-        boolean contains = regions.stream()
-                .map(Region::name)
+        boolean contains = provinces.stream()
+                .map(Province::name)
                 .map(String::toLowerCase)
                 .allMatch(n -> n.contains(name));
+
 
         // Behavior Verifications
 
         // Assertions
         assertTrue(contains);
-        assertEquals(expected, regions);
+        assertEquals(expected, provinces);
     }
 
     @ParameterizedTest
@@ -204,26 +210,7 @@ class RegionRepositoryTest {
         // Expected Value
 
         // Mock data
-
-        // Set up method
-
-        // Stubbing methods
-
-        // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> regionRepository.searchByName("name", page, size));
-
-        // Behavior Verifications
-
-        // Assertions
-    }
-
-    @Test
-    void searchByNameTotal_HappyPath() {
-        // Pre defined values
-
-        // Expected Value
-
-        // Mock data
+        int regionId = 1;
         String name = "name".toLowerCase();
 
         // Set up method
@@ -231,7 +218,30 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        int total = assertDoesNotThrow(() -> regionRepository.searchByNameTotal(name));
+        assertThrowsExactly(BadSqlGrammarException.class, () -> provinceRepository.searchByName(regionId, name, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
+
+    }
+
+    @Test
+    void searchByNameTotal_HappyPath() {
+        // Pre defined values
+
+        // Expected Value
+        int regionId = 1;
+        String name = "name".toLowerCase();
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        int total = assertDoesNotThrow(() -> provinceRepository.searchByNameTotal(regionId, name));
 
         // Behavior Verifications
 
