@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface RegionRepository extends CrudRepository<Region, Integer> {
 
+    @Override
     @Query("""
         SELECT *
         FROM region

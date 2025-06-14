@@ -2,8 +2,6 @@ package com.elleined.philippine_location_api.baranggay;
 
 import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -4,4 +4,9 @@ import org.springframework.data.annotation.Id;
 
 public record Region(@Id Long id,
                      String name,
-                     String description) { }
+                     String description) {
+
+    public Region(String name, String description) {
+        this(null, name, description);
+    }
+}
