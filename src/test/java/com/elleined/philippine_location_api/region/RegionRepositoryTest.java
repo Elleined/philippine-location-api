@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.elleined.philippine_location_api.paging.Page;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -59,10 +60,12 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
+        List<Region> regions = regionRepository.findAll(0, 10);
 
         // Behavior Verifications
 
         // Assertions
+        assertEquals(10, regions.size());
     }
 
     @Test
