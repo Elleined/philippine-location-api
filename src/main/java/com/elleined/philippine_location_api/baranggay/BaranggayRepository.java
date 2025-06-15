@@ -8,85 +8,30 @@ import java.util.List;
 
 public interface BaranggayRepository extends CrudRepository<Baranggay, Integer> {
 
-    @Query("""
-        SELECT b.*
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        ORDER BY b.name
-        """)
+    @Query("CALL baranggay_get_all(:regionId, :provinceId, :cityId)")
     List<Baranggay> findAll(@Param("regionId") int regionId,
                             @Param("provinceId") int provinceId,
                             @Param("cityId") int cityId);
 
-    @Query("""
-        SELECT b.*
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        ORDER BY b.name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL baranggay_get_all_paginated(:regionId, :provinceId, :cityId, :page, :size)")
     List<Baranggay> findAll(@Param("regionId") int regionId,
                             @Param("provinceId") int provinceId,
                             @Param("cityId") int cityId,
                             @Param("page") int page,
                             @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        """)
+    @Query("CALL baranggay_get_all_total(:regionId, :provinceId, :cityId)")
     int findAllTotal(@Param("regionId") int regionId,
                      @Param("provinceId") int provinceId,
                      @Param("cityId") int cityId);
 
-    @Query("""
-        SELECT b.*
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        AND b.name LIKE CONCAT('%', :name, '%')
-        ORDER BY b.name
-        """)
+    @Query("CALL baranggay_search_by_name(:regionId, :provinceId, :cityId, :name)")
     List<Baranggay> searchByName(@Param("regionId") int regionId,
                                  @Param("provinceId") int provinceId,
                                  @Param("cityId") int cityId,
                                  @Param("name") String name);
 
-    @Query("""
-        SELECT b.*
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        AND b.name LIKE CONCAT('%', :name, '%')
-        ORDER BY b.name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL baranggay_search_by_name_paginated(:regionId, :provinceId, :cityId, :name, :page, :size)")
     List<Baranggay> searchByName(@Param("regionId") int regionId,
                                  @Param("provinceId") int provinceId,
                                  @Param("cityId") int cityId,
@@ -94,17 +39,7 @@ public interface BaranggayRepository extends CrudRepository<Baranggay, Integer> 
                                  @Param("page") int page,
                                  @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM baranggay b
-        JOIN city c ON c.id = b.city_id
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.id = :cityId
-        AND b.name LIKE CONCAT('%', :name, '%')
-        """)
+    @Query("CALL baranggay_search_by_name_total(:regionId, :provinceId, :cityId, :name)")
     int searchByNameTotal(@Param("regionId") int regionId,
                           @Param("provinceId") int provinceId,
                           @Param("cityId") int cityId,

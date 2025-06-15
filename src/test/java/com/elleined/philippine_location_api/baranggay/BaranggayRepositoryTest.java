@@ -1,6 +1,5 @@
 package com.elleined.philippine_location_api.baranggay;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,10 +8,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.test.context.TestPropertySource;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -55,10 +53,9 @@ class BaranggayRepositoryTest {
         assertEquals(expected, baranggays);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityIdValues")
-    void findAll_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
+    void findAll_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
         // Pre defined values
 
         // Expected Value
@@ -70,7 +67,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId));
 
         // Behavior Verifications
 
@@ -111,7 +108,7 @@ class BaranggayRepositoryTest {
             "-1, 10",
             "10, -1"
     })
-    void findAllPage_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+    void findAllPage_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
         // Pre defined values
 
         // Expected Value
@@ -126,17 +123,16 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId, page, size));
 
         // Behavior Verifications
 
         // Assertions
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityIdValues")
-    void findAllPaged_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
+    void findAllPaged_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
         // Pre defined values
 
         // Expected Value
@@ -150,7 +146,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId, page, size));
 
         // Behavior Verifications
 
@@ -181,10 +177,9 @@ class BaranggayRepositoryTest {
         assertTrue(total >= 0);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityIdValues")
-    void findAllTotal_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
+    void findAllTotal_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId(int regionId, int provinceId, int cityId) {
         // Pre defined values
 
         // Expected Value
@@ -196,7 +191,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> baranggayRepository.findAllTotal(regionId, provinceId, cityId));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.findAllTotal(regionId, provinceId, cityId));
 
         // Behavior Verifications
 
@@ -237,10 +232,9 @@ class BaranggayRepositoryTest {
         assertEquals(expected, baranggays);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankNameValues")
-    void searchByName_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
+    void searchByName_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -252,7 +246,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name));
 
         // Behavior Verifications
 
@@ -300,7 +294,7 @@ class BaranggayRepositoryTest {
             "-1, 10",
             "10, -1"
     })
-    void searchByNamePaged_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
         // Pre defined values
 
         // Expected Value
@@ -316,17 +310,16 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name, page, size));
 
         // Behavior Verifications
 
         // Assertions
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankNameValues")
-    void searchByNamePaged_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
+    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -340,7 +333,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name, page, size));
 
         // Behavior Verifications
 
@@ -372,10 +365,9 @@ class BaranggayRepositoryTest {
         assertTrue(total >= 0);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankNameValues")
-    void searchByNameTotal_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
+    void searchByNameTotal_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankName(int regionId, int provinceId, int cityId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -387,7 +379,7 @@ class BaranggayRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> baranggayRepository.searchByNameTotal(regionId, provinceId, cityId, name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> baranggayRepository.searchByNameTotal(regionId, provinceId, cityId, name));
 
         // Behavior Verifications
 
