@@ -1,17 +1,22 @@
 package com.elleined.philippine_location_api.city;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.TestPropertySource;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,6 +52,28 @@ class CityRepositoryTest {
 
         // Assertions
         assertEquals(expected, cities);
+    }
+
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceIdValues")
+    void findAll_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceIdValues(int regionId, int provinceId) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(BadSqlGrammarException.class, () -> cityRepository.findAll(regionId, provinceId));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test
@@ -103,6 +130,30 @@ class CityRepositoryTest {
         // Assertions
     }
 
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceIdValues")
+    void findAllPaged_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceIdValues(int regionId, int provinceId) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int page = 1;
+        int size = 1;
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> cityRepository.findAll(regionId, provinceId, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
     @Test
     void findAllTotal_HappyPath() {
         // Pre defined values
@@ -124,6 +175,28 @@ class CityRepositoryTest {
 
         // Assertions
         assertTrue(total >= 0);
+    }
+
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceIdValues")
+    void findAllTotal_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceIdValues(int regionId, int provinceId) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> cityRepository.findAllTotal(regionId, provinceId));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test
@@ -151,6 +224,28 @@ class CityRepositoryTest {
 
         // Assertions
         assertEquals(expected, cities);
+    }
+
+    @Disabled
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
+    void searchByName_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> cityRepository.searchByName(regionId, provinceId, name));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test
@@ -215,6 +310,30 @@ class CityRepositoryTest {
         // Assertions
     }
 
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
+    void searchByNamePaged_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int page = 1;
+        int size = 1;
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> cityRepository.searchByName(regionId, provinceId, name, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
     @Test
     void searchByNameTotal_HappyPath() {
         // Pre defined values
@@ -237,5 +356,64 @@ class CityRepositoryTest {
 
         // Assertions
         assertTrue(total >= 0);
+    }
+
+    @Disabled
+    @ParameterizedTest
+    @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
+    void searchByNameTotal_ShouldThrowSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> cityRepository.searchByNameTotal(regionId, provinceId,  name));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
+    private static Stream<Arguments> negativeRegionId_AndNegativeProvinceIdValues() {
+        int regionId = 1;
+        int provinceId = 1;
+
+        return Stream.of(
+
+                // Negative region id
+                Arguments.of(-1, provinceId),
+                Arguments.of(-10, provinceId),
+
+                // Negative province id
+                Arguments.of(regionId, -1),
+                Arguments.of(regionId, -10)
+        );
+    }
+
+    private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues() {
+        int regionId = 1;
+        int provinceId = 1;
+        String name = "name".toLowerCase();
+
+        return Stream.of(
+                // Null and blank values
+                Arguments.of(regionId, provinceId, null),
+                Arguments.of(regionId, provinceId, ""),
+                Arguments.of(regionId, provinceId, "  "),
+
+                // Negative region id
+                Arguments.of(-1, provinceId, name),
+                Arguments.of(-10, provinceId, name),
+
+                // Negative province id
+                Arguments.of(regionId, -1, name),
+                Arguments.of(regionId, -10, name)
+        );
     }
 }

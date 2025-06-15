@@ -239,7 +239,7 @@ class ProvinceRepositoryTest {
 
     @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
-    @MethodSource("negativeRegionId_And_nullAndBlankNameValues")
+    @MethodSource("negativeRegionId_AndNullAndBlankNameValues")
     void searchByName_ShouldThrowSQLException_ForNegativeRegionId_And_NullAndBlankName(int regionId, String name) {
         // Pre defined values
 
@@ -322,7 +322,7 @@ class ProvinceRepositoryTest {
 
     @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
-    @MethodSource("negativeRegionId_And_nullAndBlankNameValues")
+    @MethodSource("negativeRegionId_AndNullAndBlankNameValues")
     void searchByNamePaged_ShouldThrowSQLException_ForNegativeRegionId_And_NullAndBlankName(int regionId, String name) {
         // Pre defined values
 
@@ -369,7 +369,7 @@ class ProvinceRepositoryTest {
 
     @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
-    @MethodSource("negativeRegionId_And_nullAndBlankNameValues")
+    @MethodSource("negativeRegionId_AndNullAndBlankNameValues")
     void searchByNameTotal_ShouldThrowSQLException_ForNegativeRegionId_And_NullAndBlankName(int regionId, String name) {
         // Pre defined values
 
@@ -389,16 +389,19 @@ class ProvinceRepositoryTest {
         // Assertions
     }
 
-    private static Stream<Arguments> negativeRegionId_And_nullAndBlankNameValues() {
+    private static Stream<Arguments> negativeRegionId_AndNullAndBlankNameValues() {
+        int regionId = 1;
+        String name = "name".toLowerCase();
+
         return Stream.of(
                 // Null and blank values
-                Arguments.of(1, null),
-                Arguments.of(1, ""),
-                Arguments.of(1, "  "),
+                Arguments.of(regionId, null),
+                Arguments.of(regionId, ""),
+                Arguments.of(regionId, "  "),
 
-                // Negative numbers
-                Arguments.of(-1, "name"),
-                Arguments.of(-10, "name")
+                // Negative region id
+                Arguments.of(-1, name),
+                Arguments.of(-10, name)
         );
     }
 }
