@@ -1,17 +1,22 @@
 package com.elleined.philippine_location_api.region;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.TestPropertySource;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -150,6 +155,28 @@ class RegionRepositoryTest {
         assertEquals(expected, regions);
     }
 
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("nullAndBlankNameValues")
+    void searchByName_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByName(name));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
     @Test
     void searchByNamePaged_HappyPath() {
         // Pre defined values
@@ -181,6 +208,30 @@ class RegionRepositoryTest {
         // Assertions
         assertTrue(contains);
         assertEquals(expected, regions);
+    }
+
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("nullAndBlankNameValues")
+    void searchByNamePaged_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int page = 0;
+        int size = 10;
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByName(name, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @ParameterizedTest
@@ -227,5 +278,35 @@ class RegionRepositoryTest {
 
         // Assertions
         assertTrue(total >= 0);
+    }
+
+    @Disabled("Will be enabled when stored procedures with input validation is created")
+    @ParameterizedTest
+    @MethodSource("nullAndBlankNameValues")
+    void searchByNameTotal_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByNameTotal(name));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
+    private static Stream<Arguments> nullAndBlankNameValues() {
+        return Stream.of(
+                Arguments.of((String) null),
+                Arguments.of(""),
+                Arguments.of("  ")
+        );
     }
 }
