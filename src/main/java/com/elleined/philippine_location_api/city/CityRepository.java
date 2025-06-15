@@ -8,86 +8,33 @@ import java.util.List;
 
 public interface CityRepository extends CrudRepository<City, Integer> {
 
-    @Query("""
-            SELECT c.*
-            FROM city c
-            JOIN province p ON p.id = c.province_id
-            JOIN region r ON r.id = p.region_id
-            WHERE r.id = :regionId
-            AND p.id = :provinceId
-            ORDER BY c.name
-            """)
+    @Query("CALL city_get_all(:regionId, :provinceId)")
     List<City> findAll(@Param("regionId") int regionId,
                        @Param("provinceId") int provinceId);
 
-    @Query("""
-            SELECT c.*
-            FROM city c
-            JOIN province p ON p.id = c.province_id
-            JOIN region r ON r.id = p.region_id
-            WHERE r.id = :regionId
-            AND p.id = :provinceId
-            ORDER BY c.name
-            LIMIT :size
-            OFFSET :page
-            """)
+    @Query("CALL city_get_all_paginated(:regionId, :provinceId, :page, :size)")
     List<City> findAll(@Param("regionId") int regionId,
                        @Param("provinceId") int provinceId,
                        @Param("page") int page,
                        @Param("size") int size);
 
-    @Query("""
-            SELECT COUNT(*)
-            FROM city c
-            JOIN province p ON p.id = c.province_id
-            JOIN region r ON r.id = p.region_id
-            WHERE r.id = :regionId
-            AND p.id = :provinceId
-            """)
+    @Query("CALL city_get_all_total(:regionId, :provinceId)")
     int findAllTotal(@Param("regionId") int regionId,
                      @Param("provinceId") int provinceId);
 
-    @Query("""
-        SELECT c.*
-        FROM city c
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.name LIKE CONCAT('%', :name, '%')
-        ORDER BY c.name
-        """)
+    @Query("CALL city_search_by_name(:regionId, :provinceId, :name)")
     List<City> searchByName(@Param("regionId") int regionId,
                             @Param("provinceId") int provinceId,
                             @Param("name") String name);
 
-    @Query("""
-        SELECT c.*
-        FROM city c
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.name LIKE CONCAT('%', :name, '%')
-        ORDER BY c.name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL city_search_by_name_paginated(:regionId, :provinceId, :name, :page, :size)")
     List<City> searchByName(@Param("regionId") int regionId,
                             @Param("provinceId") int provinceId,
                             @Param("name") String name,
                             @Param("page") int page,
                             @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM city c
-        JOIN province p ON p.id = c.province_id
-        JOIN region r ON r.id = p.region_id
-        WHERE r.id = :regionId
-        AND p.id = :provinceId
-        AND c.name LIKE CONCAT('%', :name, '%')
-        """)
+    @Query("CALL city_search_by_name_total(:regionId, :provinceId, :name)")
     int searchByNameTotal(@Param("regionId") int regionId,
                           @Param("provinceId") int provinceId,
                           @Param("name") String name);
