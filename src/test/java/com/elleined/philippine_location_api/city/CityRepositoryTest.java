@@ -1,23 +1,19 @@
 package com.elleined.philippine_location_api.city;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.elleined.philippine_location_api.region.Region;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
 @TestPropertySource(locations = "classpath:.env.test")
@@ -79,6 +75,32 @@ class CityRepositoryTest {
 
         // Assertions
         assertEquals(expected, cities);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 10",
+            "10, -1"
+    })
+    void findAllPage_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(BadSqlGrammarException.class, () -> cityRepository.findAll(regionId, provinceId, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test
@@ -164,6 +186,33 @@ class CityRepositoryTest {
         // Assertions
         assertTrue(contains);
         assertEquals(expected, cities);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 10",
+            "10, -1"
+    })
+    void searchByNamePaged_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        String name = "name".toLowerCase();
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(BadSqlGrammarException.class, () -> cityRepository.searchByName(regionId, provinceId, name, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test

@@ -9,10 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.elleined.philippine_location_api.city.City;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
@@ -83,6 +86,33 @@ class BaranggayRepositoryTest {
         assertEquals(expected, baranggays);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 10",
+            "10, -1"
+    })
+    void findAllPage_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.findAll(regionId, provinceId, cityId, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
+    }
+
     @Test
     void findAllTotal_HappyPath() {
         // Pre defined values
@@ -143,7 +173,7 @@ class BaranggayRepositoryTest {
 
     @Test
     void searchByNamePaged_HappyPath() {
-// Pre defined values
+        // Pre defined values
 
         // Expected Value
 
@@ -175,6 +205,34 @@ class BaranggayRepositoryTest {
         // Assertions
         assertTrue(contains);
         assertEquals(expected, baranggays);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 10",
+            "10, -1"
+    })
+    void searchByNamePaged_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        String name = "name".toLowerCase();
+
+        // Set up method
+
+        // Stubbing methods
+
+        // Calling the method
+        assertThrowsExactly(BadSqlGrammarException.class, () -> baranggayRepository.searchByName(regionId, provinceId, cityId, name, page, size));
+
+        // Behavior Verifications
+
+        // Assertions
     }
 
     @Test
