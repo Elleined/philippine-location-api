@@ -9,54 +9,24 @@ import java.util.List;
 public interface RegionRepository extends CrudRepository<Region, Integer> {
 
     @Override
-    @Query("""
-        SELECT *
-        FROM region
-        ORDER BY name
-        """)
+    @Query("CALL region_get_all()")
     List<Region> findAll();
 
-    @Query("""
-        SELECT *
-        FROM region
-        ORDER BY name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL region_get_all_paginated(:page, :size)")
     List<Region> findAll(@Param("page") int page,
                          @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM region
-        """)
+    @Query("CALL ")
     int findAllTotal();
 
-    @Query("""
-        SELECT *
-        FROM region
-        WHERE name LIKE CONCAT('%', :name, '%')
-        ORDER BY name
-        """)
+    @Query("CALL region_search_by_name(:name)")
     List<Region> searchByName(@Param("name") String name);
 
-    @Query("""
-        SELECT *
-        FROM region
-        WHERE name LIKE CONCAT('%', :name, '%')
-        ORDER BY name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL region_search_by_name_paginated(:name, :page, :size)")
     List<Region> searchByName(@Param("name") String name,
                               @Param("page") int page,
                               @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM region
-        WHERE name
-        LIKE CONCAT('%', :name, '%')
-        """)
+    @Query("CALL region_search_by_total(:name)")
     int searchByNameTotal(@Param("name") String name);
 }

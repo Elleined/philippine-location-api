@@ -1,6 +1,5 @@
 package com.elleined.philippine_location_api.region;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,10 +8,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.test.context.TestPropertySource;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -83,7 +81,7 @@ class RegionRepositoryTest {
             "-1, 10",
             "10, -1"
     })
-    void findAllPage_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+    void findAllPage_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
         // Pre defined values
 
         // Expected Value
@@ -95,7 +93,7 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> regionRepository.findAll(page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> regionRepository.findAll(page, size));
 
         // Behavior Verifications
 
@@ -155,10 +153,9 @@ class RegionRepositoryTest {
         assertEquals(expected, regions);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("nullAndBlankNameValues")
-    void searchByName_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+    void searchByName_ShouldThrowUncategorizedSQLException_ForNullOrBlankName(String name) {
         // Pre defined values
 
         // Expected Value
@@ -170,7 +167,7 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByName(name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> regionRepository.searchByName(name));
 
         // Behavior Verifications
 
@@ -210,10 +207,9 @@ class RegionRepositoryTest {
         assertEquals(expected, regions);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("nullAndBlankNameValues")
-    void searchByNamePaged_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForNullOrBlankName(String name) {
         // Pre defined values
 
         // Expected Value
@@ -227,7 +223,7 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByName(name, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> regionRepository.searchByName(name, page, size));
 
         // Behavior Verifications
 
@@ -239,7 +235,7 @@ class RegionRepositoryTest {
             "-1, 10",
             "10, -1"
     })
-    void searchByNamePaged_ShouldThrowBadSqlGrammarException_ForInvalidPageNumberAndPageSize(int page, int size) {
+    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
         // Pre defined values
 
         // Expected Value
@@ -251,7 +247,7 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(BadSqlGrammarException.class, () -> regionRepository.searchByName("name", page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> regionRepository.searchByName("name", page, size));
 
         // Behavior Verifications
 
@@ -280,10 +276,9 @@ class RegionRepositoryTest {
         assertTrue(total >= 0);
     }
 
-    @Disabled("Will be enabled when stored procedures with input validation is created")
     @ParameterizedTest
     @MethodSource("nullAndBlankNameValues")
-    void searchByNameTotal_ShouldThrowSQLException_ForNullOrBlankName(String name) {
+    void searchByNameTotal_ShouldThrowUncategorizedSQLException_ForNullOrBlankName(String name) {
         // Pre defined values
 
         // Expected Value
@@ -295,7 +290,7 @@ class RegionRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(SQLException.class, () -> regionRepository.searchByNameTotal(name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> regionRepository.searchByNameTotal(name));
 
         // Behavior Verifications
 
