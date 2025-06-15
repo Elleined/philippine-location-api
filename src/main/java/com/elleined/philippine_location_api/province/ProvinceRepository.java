@@ -8,63 +8,28 @@ import java.util.List;
 
 public interface ProvinceRepository extends CrudRepository<Province, Integer> {
 
-    @Query("""
-        SELECT *
-        FROM province
-        WHERE region_id = :regionId
-        ORDER BY name
-        """)
+    @Query("CALL province_get_all(:regionId)")
     List<Province> findAll(@Param("regionId") int regionId);
 
-    @Query("""
-        SELECT *
-        FROM province
-        WHERE region_id = :regionId
-        ORDER BY name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL province_get_all_paginated(:regionId, :page, :size)")
     List<Province> findAll(@Param("regionId") int regionId,
                            @Param("page") int page,
                            @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM province
-        WHERE region_id = :regionId
-        """)
+    @Query("CALL province_get_all_total(:regionId)")
     int findAllTotal(@Param("regionId") int regionId);
 
-    @Query("""
-        SELECT *
-        FROM province
-        WHERE region_id = :regionId
-        AND name LIKE CONCAT('%', :name, '%')
-        ORDER BY name
-        """)
+    @Query("CALL province_search_by_name(:regionId, :name)")
     List<Province> searchByName(@Param("regionId") int regionId,
                                 @Param("name") String name);
 
-    @Query("""
-        SELECT *
-        FROM province
-        WHERE region_id = :regionId
-        AND name LIKE CONCAT('%', :name, '%')
-        ORDER BY name
-        LIMIT :size
-        OFFSET :page
-        """)
+    @Query("CALL province_search_by_name_paginated(:regionId, :name, :page, :size)")
     List<Province> searchByName(@Param("regionId") int regionId,
                                 @Param("name") String name,
                                 @Param("page") int page,
                                 @Param("size") int size);
 
-    @Query("""
-        SELECT COUNT(*)
-        FROM province
-        WHERE region_id = :regionId
-        AND name LIKE CONCAT('%', :name, '%')
-        """)
+    @Query("CALL province_search_by_name_total(:regionId, :name)")
     int searchByNameTotal(@Param("regionId") int regionId,
                           @Param("name") String name);
 }
