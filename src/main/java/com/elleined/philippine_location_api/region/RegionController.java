@@ -40,6 +40,6 @@ public class RegionController {
                                      @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return regionService.searchByName(name, pageRequest);
+        return regionService.searchByName(pageRequest, name);
     }
 }

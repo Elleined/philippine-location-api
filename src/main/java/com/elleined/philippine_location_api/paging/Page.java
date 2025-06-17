@@ -7,7 +7,6 @@ public record Page<T>(
         PageRequest request,
         int totalElements
 ) {
-
     public int getTotalPages() {
         return (totalElements + request.size() - 1) / request.size();
     }

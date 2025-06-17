@@ -14,6 +14,6 @@ public interface RegionService {
 
     List<Region> searchByName(@NotBlank String name);
 
-    Page<Region> searchByName(@NotBlank String name,
-                              @NotNull PageRequest request);
+    Page<Region> searchByName(@NotNull PageRequest request,
+                              @NotBlank String name);
 }

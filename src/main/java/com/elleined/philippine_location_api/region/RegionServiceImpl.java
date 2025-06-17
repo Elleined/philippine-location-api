@@ -35,8 +35,8 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public Page<Region> searchByName(String name,
-                                     PageRequest request) {
+    public Page<Region> searchByName(PageRequest request,
+                                     String name) {
 
         List<Region> regions = regionRepository.searchByName(name, request.getOffset(), request.size());
         return new Page<>(regions, request, regionRepository.searchByNameTotal(name));
