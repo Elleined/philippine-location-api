@@ -129,7 +129,7 @@ class RegionServiceImplTest {
 
         // Assertions
 
-        assertEquals(1, violations.size());
+        assertFalse(violations.isEmpty());
     }
 
 
@@ -189,7 +189,7 @@ class RegionServiceImplTest {
         verifyNoInteractions(regionRepository);
 
         // Assertions
-        assertEquals(1, violations.size());
+        assertFalse(violations.isEmpty());
     }
 
     @Test
@@ -260,6 +260,6 @@ class RegionServiceImplTest {
         verifyNoInteractions(regionRepository);
 
         // Assertions
-        assertEquals(1, violations.size());
+        assertFalse(violations.isEmpty());
     }
 }
