@@ -133,12 +133,14 @@ class CityServiceImplTest {
 
         // Stubbing methods
         when(cityRepository.findAll(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(expected);
+        when(cityRepository.findAllTotal(anyInt(), anyInt())).thenReturn(expected.size());
 
         // Calling the method
         Page<City> actual = assertDoesNotThrow(() -> cityService.getAll(regionId, provinceId, request));
 
         // Behavior Verifications
         verify(cityRepository).findAll(anyInt(), anyInt(), anyInt(), anyInt());
+        verify(cityRepository).findAllTotal(anyInt(), anyInt());
 
         // Assertions
         assertEquals(expected, actual.content());
@@ -277,12 +279,14 @@ class CityServiceImplTest {
 
         // Stubbing methods
         when(cityRepository.searchByName(anyInt(), anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
+        when(cityRepository.searchByNameTotal(anyInt(), anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
         Page<City> actual = assertDoesNotThrow(() -> cityService.searchByName(regionId, provinceId, name, request));
 
         // Behavior Verifications
         verify(cityRepository).searchByName(anyInt(), anyInt(), anyString(), anyInt(), anyInt());
+        verify(cityRepository).searchByNameTotal(anyInt(), anyInt(), anyString());
 
         // Assertions
         assertEquals(expected, actual.content());

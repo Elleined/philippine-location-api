@@ -117,12 +117,14 @@ class ProvinceServiceImplTest {
 
         // Stubbing methods
         when(provinceRepository.findAll(anyInt(), anyInt(), anyInt())).thenReturn(expected);
+        when(provinceRepository.findAllTotal(anyInt())).thenReturn(expected.size());
 
         // Calling the method
         Page<Province> actual = assertDoesNotThrow(() -> provinceService.getAll(regionId, request));
 
         // Behavior Verifications
         verify(provinceRepository).findAll(anyInt(), anyInt(), anyInt());
+        verify(provinceRepository).findAllTotal(anyInt());
 
         // Assertions
         assertEquals(expected, actual.content());
@@ -252,12 +254,14 @@ class ProvinceServiceImplTest {
 
         // Stubbing methods
         when(provinceRepository.searchByName(anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
+        when(provinceRepository.searchByNameTotal(anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
         Page<Province> actual = assertDoesNotThrow(() -> provinceService.searchByName(regionId, name, request));
 
         // Behavior Verifications
         verify(provinceRepository).searchByName(anyInt(), anyString(), anyInt(), anyInt());
+        verify(provinceRepository).searchByNameTotal(anyInt(), anyString());
 
         // Assertions
         assertEquals(expected, actual.content());
