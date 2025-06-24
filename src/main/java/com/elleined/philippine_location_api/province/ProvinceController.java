@@ -14,7 +14,7 @@ public class ProvinceController {
     private final ProvinceService provinceService;
 
     @GetMapping
-    public List<Province> getAll(@PathVariable("regionId") int regionId) {
+    public List<ProvinceDTO> getAll(@PathVariable("regionId") int regionId) {
         return provinceService.getAll(regionId);
     }
 

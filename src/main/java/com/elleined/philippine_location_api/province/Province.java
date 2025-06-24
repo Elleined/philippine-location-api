@@ -11,4 +11,8 @@ import org.springframework.data.relational.core.mapping.Table;
 public record Province(@Id Long id,
                        String name,
                        @Column("region_id") AggregateReference<Region, Long> region) {
+
+    public static ProvinceDTO toDTO(Province province) {
+        return new ProvinceDTO(province.id(), province.name(), province.region().getId());
+    }
 }
