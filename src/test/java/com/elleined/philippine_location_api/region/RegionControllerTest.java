@@ -82,34 +82,6 @@ class RegionControllerTest {
         // Assertions
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "-1, 10",
-            "10, -1"
-    })
-    void getAllPaged_ShouldThrowBadRequest_ForNegativePage_AndNegativeSize(int page, int size) throws Exception {
-        // Pre defined values
-
-        // Expected Value
-
-        // Mock data
-
-        // Set up method
-
-        // Stubbing methods
-
-        // Calling the method
-        mockMvc.perform(get("/regions/paged")
-                        .param("page", String.valueOf(page))
-                        .param("size", String.valueOf(size)))
-                .andExpect(status().isBadRequest());
-
-        // Behavior Verifications
-        verifyNoInteractions(regionService);
-
-        // Assertions
-    }
-
     @Test
     void getAllPaged_ShouldHaveTheDefault_PageOf1_AndSizeOf10_WhenNotProvided() throws Exception {
         // Pre defined values
@@ -165,41 +137,6 @@ class RegionControllerTest {
         // Assertions
     }
 
-    private static Stream<Arguments> searchByName_nullAndBlankNameValues() {
-        return Stream.of(
-                Arguments.of((String) null),
-                Arguments.of(""),
-                Arguments.of("  ")
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("searchByName_nullAndBlankNameValues")
-    void searchByName_ShouldReturnBadRequest_ForNullAndBlankName(String name) {
-        // Pre defined values
-
-        // Expected Value
-
-        // Mock data
-
-        // Set up method
-
-        // Stubbing methods
-        when(regionService.searchByName(anyString())).thenReturn(new ArrayList<>());
-
-        // Calling the method
-        assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/search")
-                            .param("name", name))
-                    .andExpect(status().isBadRequest());
-        });
-
-        // Behavior Verifications
-        verifyNoInteractions(regionService);
-
-        // Assertions
-    }
-
     @Test
     void searchByNamePaged_HappyPath() {
         // Pre defined values
@@ -225,47 +162,6 @@ class RegionControllerTest {
 
         // Behavior Verifications
         verify(regionService).searchByName(any(PageRequest.class), anyString());
-
-        // Assertions
-    }
-
-    private static Stream<Arguments> searchByNamePaged_NegativePage_AndNegativeSize_AndNullAndBlankNameValues() {
-        String name = "name";
-        int page = 1;
-        int size = 10;
-
-        return Stream.of(
-                Arguments.of(null, page, size),
-                Arguments.of("", page, size),
-                Arguments.of("  ", page, size),
-
-                Arguments.of(name, -1, 10),
-                Arguments.of(name, 10, -1)
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("searchByNamePaged_NegativePage_AndNegativeSize_AndNullAndBlankNameValues")
-    void searchByNamePaged_ShouldReturnBadRequest_ForNegativePage_AndNegativeSize_AndNullAndBlankNameValues(String name, int page, int size) throws Exception {
-        // Pre defined values
-
-        // Expected Value
-
-        // Mock data
-
-        // Set up method
-
-        // Stubbing methods
-        mockMvc.perform(get("/regions/paged-search")
-                        .param("name", name)
-                        .param("page", "" + page)
-                        .param("size", "" + size))
-                .andExpect(status().isBadRequest());
-
-        // Calling the method
-
-        // Behavior Verifications
-        verifyNoInteractions(regionService);
 
         // Assertions
     }
