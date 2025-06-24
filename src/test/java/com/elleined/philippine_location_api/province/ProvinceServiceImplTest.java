@@ -176,6 +176,7 @@ class ProvinceServiceImplTest {
         // Mock data
         int regionId = 1;
         List<Province> expected = new ArrayList<>();
+        String name = "name";
 
         // Set up method
 
@@ -183,7 +184,7 @@ class ProvinceServiceImplTest {
         when(provinceRepository.searchByName(anyInt(), anyString())).thenReturn(expected);
 
         // Calling the method
-        List<Province> actual = assertDoesNotThrow(() -> provinceService.searchByName(regionId, "name"));
+        List<Province> actual = assertDoesNotThrow(() -> provinceService.searchByName(regionId, name));
 
         // Behavior Verifications
         verify(provinceRepository).searchByName(anyInt(), anyString());
