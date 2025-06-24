@@ -1,0 +1,228 @@
+package com.elleined.philippine_location_api.baranggay;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.elleined.philippine_location_api.paging.Page;
+import com.elleined.philippine_location_api.paging.PageRequest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@WebMvcTest(BaranggayController.class)
+class BaranggayControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private BaranggayService baranggayService;
+
+    @Test
+    void getAll_HappyPath() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        List<Baranggay> expected = new ArrayList<>();
+
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.getAll(anyInt(), anyInt(), anyInt())).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays", regionId, provinceId, cityId))
+                    .andExpect(status().isOk());
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).getAll(anyInt(), anyInt(), anyInt());
+
+        // Assertions
+    }
+
+    @Test
+    void getAllPaged_HappyPath() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        int page = 1;
+        int size = 10;
+        PageRequest request = new PageRequest(page, size);
+        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.getAll(anyInt(), anyInt(), anyInt(), any(PageRequest.class))).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged", regionId, provinceId, cityId)
+                            .param("page", String.valueOf(page))
+                            .param("size", String.valueOf(size)))
+                    .andExpect(status().isOk());
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).getAll(anyInt(), anyInt(), anyInt(), any(PageRequest.class));
+
+        // Assertions
+    }
+
+    @Test
+    void getAllPaged_ShouldHaveTheDefault_PageOf1_AndSizeOf10_WhenNotProvided() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        int page = 1;
+        int size = 10;
+        PageRequest request = new PageRequest(page, size);
+        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.getAll(anyInt(), anyInt(), anyInt(), any(PageRequest.class))).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged", regionId, provinceId, cityId))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.request.page").value(page))
+                    .andExpect(jsonPath("$.request.size").value(size));
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).getAll(anyInt(), anyInt(), anyInt(), any(PageRequest.class));
+
+        // Assertions
+    }
+
+    @Test
+    void searchByName_HappyPath() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        String name = "name";
+        List<Baranggay> expected = new ArrayList<>();
+
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.searchByName(anyInt(), anyInt(), anyInt(), anyString())).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/search", regionId, provinceId, cityId)
+                            .param("name", name))
+                    .andExpect(status().isOk());
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).searchByName(anyInt(), anyInt(), anyInt(), anyString());
+
+        // Assertions
+    }
+
+    @Test
+    void searchByNamePaged_HappyPath() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        String name = "name";
+        int page = 1;
+        int size = 10;
+        PageRequest request = new PageRequest(page, size);
+        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.searchByName(anyInt(), anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged-search", regionId, provinceId, cityId)
+                            .param("name", name)
+                            .param("page", String.valueOf(page))
+                            .param("size", String.valueOf(size)))
+                    .andExpect(status().isOk());
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).searchByName(anyInt(), anyInt(), anyInt(), anyString(), any(PageRequest.class));
+
+        // Assertions
+    }
+
+    @Test
+    void searchByNamePaged_ShouldHaveTheDefault_PageOf1_AndSizeOf10_WhenNotProvided() {
+        // Pre defined values
+
+        // Expected Value
+
+        // Mock data
+        int regionId = 1;
+        int provinceId = 1;
+        int cityId = 1;
+        String name = "name";
+        int page = 1;
+        int size = 10;
+        PageRequest request = new PageRequest(page, size);
+        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+
+        // Set up method
+
+        // Stubbing methods
+        when(baranggayService.searchByName(anyInt(), anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+
+        // Calling the method
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged-search", regionId, provinceId, cityId)
+                            .param("name", name))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.request.page").value(page))
+                    .andExpect(jsonPath("$.request.size").value(size));
+        });
+
+        // Behavior Verifications
+        verify(baranggayService).searchByName(anyInt(), anyInt(), anyInt(), anyString(), any(PageRequest.class));
+
+        // Assertions
+    }
+}
