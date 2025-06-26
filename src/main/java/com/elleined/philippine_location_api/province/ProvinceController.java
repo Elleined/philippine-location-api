@@ -34,7 +34,7 @@ public class ProvinceController {
         return provinceService.searchByName(regionId, name);
     }
 
-    @GetMapping("/paged-search")
+    @GetMapping("/search/paged")
     public Page<Province> searchByName(@PathVariable("regionId") int regionId,
                                        @RequestParam("name") String name,
                                        @RequestParam(value = "page", defaultValue = "1") int page,

@@ -41,7 +41,7 @@ public class BaranggayController {
         return baranggayService.searchByName(regionId, provinceId, cityId, name);
     }
 
-    @GetMapping("/paged-search")
+    @GetMapping("/search/paged")
     public Page<Baranggay> searchByName(@PathVariable("regionId") int regionId,
                                         @PathVariable("provinceId") int provinceId,
                                         @PathVariable("cityId") int cityId,

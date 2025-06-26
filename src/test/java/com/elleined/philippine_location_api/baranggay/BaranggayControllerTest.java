@@ -175,7 +175,7 @@ class BaranggayControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged-search", regionId, provinceId, cityId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/search/paged", regionId, provinceId, cityId)
                             .param("name", name)
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
@@ -211,7 +211,7 @@ class BaranggayControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/paged-search", regionId, provinceId, cityId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays/search/paged", regionId, provinceId, cityId)
                             .param("name", name))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.request.page").value(page))

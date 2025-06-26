@@ -34,7 +34,7 @@ public class RegionController {
         return regionService.searchByName(name);
     }
 
-    @GetMapping("/paged-search")
+    @GetMapping("/search/paged")
     public Page<Region> searchByName(@RequestParam("name") String name,
                                      @RequestParam(value = "page", defaultValue = "1") int page,
                                      @RequestParam(value = "size", defaultValue = "10") int size) {

@@ -172,7 +172,7 @@ class CityControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/paged-search", regionId, provinceId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/search/paged", regionId, provinceId)
                             .param("name", name)
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
@@ -205,7 +205,7 @@ class CityControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/paged-search", regionId, provinceId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/{provinceId}/cities/search/paged", regionId, provinceId)
                             .param("name", name))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.request.page").value(page))

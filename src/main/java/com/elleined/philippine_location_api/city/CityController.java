@@ -38,7 +38,7 @@ public class CityController {
         return cityService.searchByName(regionId, provinceId, name);
     }
 
-    @GetMapping("/paged-search")
+    @GetMapping("/search/paged")
     public Page<City> searchByName(@PathVariable("regionId") int regionId,
                                    @PathVariable("provinceId") int provinceId,
                                    @RequestParam("name") String name,

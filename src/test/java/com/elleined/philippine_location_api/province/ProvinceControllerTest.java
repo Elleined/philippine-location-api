@@ -167,7 +167,7 @@ class ProvinceControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/paged-search", regionId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/search/paged", regionId)
                             .param("name", name)
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
@@ -201,7 +201,7 @@ class ProvinceControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/{regionId}/provinces/paged-search", regionId)
+            mockMvc.perform(get("/regions/{regionId}/provinces/search/paged", regionId)
                             .param("name", name))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.request.page").value(page))

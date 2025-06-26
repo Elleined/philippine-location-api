@@ -149,7 +149,7 @@ class RegionControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/paged-search")
+            mockMvc.perform(get("/regions/search/paged")
                             .param("name", "name")
                             .param("page", "1")
                             .param("size", "10"))
@@ -179,7 +179,7 @@ class RegionControllerTest {
         when(regionService.searchByName(any(PageRequest.class), anyString())).thenReturn(regions);
 
         // Calling the method
-        mockMvc.perform(get("/regions/paged-search")
+        mockMvc.perform(get("/regions/search/paged")
                         .param("name", "name"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.request.page").value(page))
