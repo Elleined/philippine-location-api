@@ -258,6 +258,7 @@ class CityServiceImplTest {
         verifyNoInteractions(cityRepository);
 
         // Assertions
+        assertFalse(violations.isEmpty());
     }
 
     @Test
