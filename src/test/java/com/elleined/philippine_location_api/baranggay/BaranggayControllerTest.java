@@ -36,7 +36,7 @@ class BaranggayControllerTest {
         int regionId = 1;
         int provinceId = 1;
         int cityId = 1;
-        List<Baranggay> expected = new ArrayList<>();
+        List<BaranggayDTO> expected = new ArrayList<>();
 
         // Set up method
 

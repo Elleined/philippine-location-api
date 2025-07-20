@@ -50,15 +50,18 @@ class RegionServiceImplTest {
         // Expected Value
 
         // Mock data
-        List<Region> expected = new ArrayList<>();
+        List<Region> regions = List.of(new Region(1L, null, null));
+        List<RegionDTO> expected = regions.stream()
+                .map(Region::toDTO)
+                .toList();
 
         // Set up method
 
         // Stubbing methods
-        when(regionRepository.findAll()).thenReturn(expected);
+        when(regionRepository.findAll()).thenReturn(regions);
 
         // Calling the method
-        List<Region> actual = assertDoesNotThrow(() -> regionService.getAll());
+        List<RegionDTO> actual = assertDoesNotThrow(() -> regionService.getAll());
 
         // Behavior Verifications
         verify(regionRepository).findAll();

@@ -2,6 +2,7 @@ package com.elleined.philippine_location_api.city;
 
 import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.province.Province;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -16,6 +17,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +54,19 @@ class CityServiceImplTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        List<City> expected = new ArrayList<>();
+        AggregateReference<Province, Long> province = AggregateReference.to(1L);
+        List<City> cities = List.of(new City(1L, null, province));
+        List<CityDTO> expected = cities.stream()
+                .map(City::toDTO)
+                .toList();
 
         // Set up method
 
         // Stubbing methods
-        when(cityRepository.findAll(anyInt(), anyInt())).thenReturn(expected);
+        when(cityRepository.findAll(anyInt(), anyInt())).thenReturn(cities);
 
         // Calling the method
-        List<City> actual = assertDoesNotThrow(() -> cityService.getAll(regionId, provinceId));
+        List<CityDTO> actual = assertDoesNotThrow(() -> cityService.getAll(regionId, provinceId));
 
         // Behavior Verifications
         verify(cityRepository).findAll(anyInt(), anyInt());

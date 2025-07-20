@@ -2,6 +2,7 @@ package com.elleined.philippine_location_api.province;
 
 import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.region.Region;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -17,6 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +54,19 @@ class ProvinceServiceImplTest {
 
         // Mock data
         int regionId = 1;
-        List<Province> expected = new ArrayList<>();
+        AggregateReference<Region, Long> region = AggregateReference.to(1L);
+        List<Province> provinces = List.of(new Province(1L, null, region));
+        List<ProvinceDTO> expected = provinces.stream()
+                .map(Province::toDTO)
+                .toList();
 
         // Set up method
 
         // Stubbing methods
-        when(provinceRepository.findAll(anyInt())).thenReturn(expected);
+        when(provinceRepository.findAll(anyInt())).thenReturn(provinces);
 
         // Calling the method
-        List<Province> actual = assertDoesNotThrow(() -> provinceService.getAll(regionId));
+        List<ProvinceDTO> actual = assertDoesNotThrow(() -> provinceService.getAll(regionId));
 
         // Behavior Verifications
         verify(provinceRepository).findAll(anyInt());

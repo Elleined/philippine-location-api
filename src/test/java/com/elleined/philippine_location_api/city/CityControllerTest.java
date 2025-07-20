@@ -35,7 +35,7 @@ class CityControllerTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        List<City> expected = new ArrayList<>();
+        List<CityDTO> expected = new ArrayList<>();
 
         // Set up method
 

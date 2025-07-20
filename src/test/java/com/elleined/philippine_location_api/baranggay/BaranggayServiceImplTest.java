@@ -1,5 +1,6 @@
 package com.elleined.philippine_location_api.baranggay;
 
+import com.elleined.philippine_location_api.city.City;
 import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
 import jakarta.validation.ConstraintViolation;
@@ -16,6 +17,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,15 +55,19 @@ class BaranggayServiceImplTest {
         int regionId = 1;
         int provinceId = 1;
         int cityId = 1;
-        List<Baranggay> expected = new ArrayList<>();
+        AggregateReference<City, Long> city = AggregateReference.to(1L);
+        List<Baranggay> baranggay = List.of(new Baranggay(1L, null, city));
+        List<BaranggayDTO> expected = baranggay.stream()
+                .map(Baranggay::toDTO)
+                .toList();
 
         // Set up method
 
         // Stubbing methods
-        when(baranggayRepository.findAll(anyInt(), anyInt(), anyInt())).thenReturn(expected);
+        when(baranggayRepository.findAll(anyInt(), anyInt(), anyInt())).thenReturn(baranggay);
 
         // Calling the method
-        List<Baranggay> actual = assertDoesNotThrow(() -> baranggayService.getAll(regionId, provinceId, cityId));
+        List<BaranggayDTO> actual = assertDoesNotThrow(() -> baranggayService.getAll(regionId, provinceId, cityId));
 
         // Behavior Verifications
         verify(baranggayRepository).findAll(anyInt(), anyInt(), anyInt());
