@@ -1,5 +1,5 @@
 services:
-  mysql-server:
+  dev-mysql-server:
     image: mysql:${MYSQL_IMAGE_TAG}
     container_name: ${MYSQL_CONTAINER_NAME}
     environment:
