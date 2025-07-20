@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Positive;
 import java.util.List;
 
 public interface ProvinceService {
-    List<ProvinceDTO> getAll(@Positive int regionId);
+    List<Province> getAll(@Positive int regionId);
 
     Page<Province> getAll(@Positive int regionId,
                           @NotNull PageRequest request);

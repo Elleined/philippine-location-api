@@ -1,6 +1,8 @@
 package com.elleined.philippine_location_api.paging;
 
-public record PageRequest(int page, int size) {
+import java.io.Serializable;
+
+public record PageRequest(int page, int size) implements Serializable {
 
     public PageRequest {
         if (page <= 0) {

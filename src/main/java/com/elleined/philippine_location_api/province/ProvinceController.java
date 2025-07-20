@@ -15,7 +15,9 @@ public class ProvinceController {
 
     @GetMapping
     public List<ProvinceDTO> getAll(@PathVariable("regionId") int regionId) {
-        return provinceService.getAll(regionId);
+        return provinceService.getAll(regionId).stream()
+                .map(Province::toDTO)
+                .toList();
     }
 
     @GetMapping("/paged")

@@ -13,11 +13,6 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(PhilippineLocationAPIException.class)
     public ResponseEntity<String> handlePhilippineLocationAPIException(PhilippineLocationAPIException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

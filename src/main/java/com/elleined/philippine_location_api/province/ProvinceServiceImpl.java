@@ -4,7 +4,6 @@ import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -20,11 +19,8 @@ public class ProvinceServiceImpl implements ProvinceService {
     private final ProvinceRepository provinceRepository;
 
     @Override
-    @Cacheable(value = "provinces", key = "#regionId")
-    public List<ProvinceDTO> getAll(int regionId) {
-        return provinceRepository.findAll(regionId).stream()
-                .map(Province::toDTO)
-                .toList();
+    public List<Province> getAll(int regionId) {
+        return provinceRepository.findAll(regionId);
     }
 
     @Override

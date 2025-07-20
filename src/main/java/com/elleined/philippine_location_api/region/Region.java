@@ -8,7 +8,8 @@ public record Region(@Id Long id,
                      String name,
                      String description) {
 
-    public Region(String name, String description) {
-        this(null, name, description);
+
+    public RegionDTO toDTO() {
+        return new RegionDTO(this.id(), this.name(), this.description());
     }
 }

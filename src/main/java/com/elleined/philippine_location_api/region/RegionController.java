@@ -17,12 +17,12 @@ public class RegionController {
     private final RegionService regionService;
 
     @GetMapping
-    public List<Region> getAll() {
+    public List<RegionDTO> getAll() {
         return regionService.getAll();
     }
 
     @GetMapping("/paged")
-    public Page<Region> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
+    public Page<RegionDTO> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -30,12 +30,12 @@ public class RegionController {
     }
 
     @GetMapping("/search")
-    public List<Region> searchByName(@RequestParam("name") String name) {
+    public List<RegionDTO> searchByName(@RequestParam("name") String name) {
         return regionService.searchByName(name);
     }
 
     @GetMapping("/search/paged")
-    public Page<Region> searchByName(@RequestParam("name") String name,
+    public Page<RegionDTO> searchByName(@RequestParam("name") String name,
                                      @RequestParam(value = "page", defaultValue = "1") int page,
                                      @RequestParam(value = "size", defaultValue = "10") int size) {
 
