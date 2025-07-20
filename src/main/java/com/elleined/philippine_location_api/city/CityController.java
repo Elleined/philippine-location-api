@@ -14,14 +14,14 @@ public class CityController {
     private final CityService cityService;
 
     @GetMapping
-    public List<City> getAllBy(@PathVariable("regionId") int regionId,
+    public List<City> getAll(@PathVariable("regionId") int regionId,
                                @PathVariable("provinceId") int provinceId) {
 
         return cityService.getAll(regionId, provinceId);
     }
 
     @GetMapping("/paged")
-    public Page<City> getAllBy(@PathVariable("regionId") int regionId,
+    public Page<City> getAll(@PathVariable("regionId") int regionId,
                                @PathVariable("provinceId") int provinceId,
                                @RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -38,7 +38,7 @@ public class CityController {
         return cityService.searchByName(regionId, provinceId, name);
     }
 
-    @GetMapping("/paged-search")
+    @GetMapping("/search/paged")
     public Page<City> searchByName(@PathVariable("regionId") int regionId,
                                    @PathVariable("provinceId") int provinceId,
                                    @RequestParam("name") String name,
