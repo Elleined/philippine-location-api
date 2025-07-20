@@ -48,7 +48,6 @@ services:
     networks:
       - pla-network
     volumes:
-      - ${MYSQL_BIND_MOUNT_PATH}:/docker-entrypoint-initdb.d/init.sql
       - pla-volume:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
