@@ -1,7 +1,7 @@
 services:
   backend:
-    image: elleined/philippine-location-api:${PLA_IMAGE_TAG}
-    container_name: ${PLA_CONTAINER_NAME}
+    image: elleined/philippine-location-api:${IMAGE_TAG}
+    container_name: ${CONTAINER_NAME}
     restart: always
     environment:
       - TZ=Asia/Manila
@@ -10,16 +10,16 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_PORT=${MYSQL_PORT}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_HOST=${REDIS_CONTAINER_NAME}
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_DATABASE=${REDIS_DATABASE}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_TTL=${REDIS_TTL}
-      - PORT=${PLA_PORT}
+      - PORT=${PORT}
       - LOG_LEVEL=${LOG_LEVEL}
-      - ALLOWED_ORIGINS=${PLA_ALLOWED_ORIGINS}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
     ports:
-      - "${PLA_PORT}:${PLA_PORT}"
+      - "${PORT}:${PORT}"
     networks:
       - pla-network
     volumes:
@@ -29,7 +29,7 @@ services:
       mysql-server:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "http://${PLA_CONTAINER_NAME}:${PLA_PORT}/${PLA_CONTEXT_PATH}/actuator/health" ]
+      test: [ "CMD", "wget", "--spider", "http://${CONTAINER_NAME}:${PORT}/${CONTEXT_PATH}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
