@@ -10,10 +10,10 @@ import java.util.List;
 public interface RegionService {
     List<RegionDTO> getAll();
 
-    Page<RegionDTO> getAll(@NotNull PageRequest request);
+    Page<Region> getAll(@NotNull PageRequest request);
 
-    List<RegionDTO> searchByName(@NotBlank String name);
+    List<Region> searchByName(@NotBlank String name);
 
-    Page<RegionDTO> searchByName(@NotNull PageRequest request,
+    Page<Region> searchByName(@NotNull PageRequest request,
                               @NotBlank String name);
 }

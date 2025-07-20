@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Positive;
 import java.util.List;
 
 public interface BaranggayService {
-    List<Baranggay> getAll(@Positive int regionId,
+    List<BaranggayDTO> getAll(@Positive int regionId,
                            @Positive int provinceId,
                            @Positive int cityId);
 

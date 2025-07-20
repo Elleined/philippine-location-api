@@ -14,7 +14,7 @@ public class BaranggayController {
     private final BaranggayService baranggayService;
 
     @GetMapping
-    public List<Baranggay> getAll(@PathVariable("regionId") int regionId,
+    public List<BaranggayDTO> getAll(@PathVariable("regionId") int regionId,
                                   @PathVariable("provinceId") int provinceId,
                                   @PathVariable("cityId") int cityId) {
 
@@ -38,7 +38,7 @@ public class BaranggayController {
                                         @PathVariable("cityId") int cityId,
                                         @RequestParam("name") String name) {
 
-        return baranggayService.searchByName(regionId, provinceId, cityId, name);
+        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase());
     }
 
     @GetMapping("/search/paged")
@@ -50,6 +50,6 @@ public class BaranggayController {
                                         @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return baranggayService.searchByName(regionId, provinceId, cityId, name, pageRequest);
+        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase(), pageRequest);
     }
 }

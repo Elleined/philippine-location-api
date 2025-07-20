@@ -14,7 +14,7 @@ public class CityController {
     private final CityService cityService;
 
     @GetMapping
-    public List<City> getAll(@PathVariable("regionId") int regionId,
+    public List<CityDTO> getAll(@PathVariable("regionId") int regionId,
                                @PathVariable("provinceId") int provinceId) {
 
         return cityService.getAll(regionId, provinceId);
@@ -35,7 +35,7 @@ public class CityController {
                                    @PathVariable("provinceId") int provinceId,
                                    @RequestParam("name") String name) {
 
-        return cityService.searchByName(regionId, provinceId, name);
+        return cityService.searchByName(regionId, provinceId, name.toLowerCase());
     }
 
     @GetMapping("/search/paged")
@@ -46,6 +46,6 @@ public class CityController {
                                    @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return cityService.searchByName(regionId, provinceId, name, pageRequest);
+        return cityService.searchByName(regionId, provinceId, name.toLowerCase(), pageRequest);
     }
 }

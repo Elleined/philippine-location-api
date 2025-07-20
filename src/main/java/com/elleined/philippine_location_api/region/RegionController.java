@@ -22,7 +22,7 @@ public class RegionController {
     }
 
     @GetMapping("/paged")
-    public Page<RegionDTO> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
+    public Page<Region> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -30,16 +30,16 @@ public class RegionController {
     }
 
     @GetMapping("/search")
-    public List<RegionDTO> searchByName(@RequestParam("name") String name) {
-        return regionService.searchByName(name);
+    public List<Region> searchByName(@RequestParam("name") String name) {
+        return regionService.searchByName(name.toLowerCase());
     }
 
     @GetMapping("/search/paged")
-    public Page<RegionDTO> searchByName(@RequestParam("name") String name,
+    public Page<Region> searchByName(@RequestParam("name") String name,
                                      @RequestParam(value = "page", defaultValue = "1") int page,
                                      @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return regionService.searchByName(pageRequest, name);
+        return regionService.searchByName(pageRequest, name.toLowerCase());
     }
 }

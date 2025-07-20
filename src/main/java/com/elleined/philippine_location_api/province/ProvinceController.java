@@ -15,9 +15,7 @@ public class ProvinceController {
 
     @GetMapping
     public List<ProvinceDTO> getAll(@PathVariable("regionId") int regionId) {
-        return provinceService.getAll(regionId).stream()
-                .map(Province::toDTO)
-                .toList();
+        return provinceService.getAll(regionId);
     }
 
     @GetMapping("/paged")
@@ -33,7 +31,7 @@ public class ProvinceController {
     public List<Province> searchByName(@PathVariable("regionId") int regionId,
                                        @RequestParam("name") String name) {
 
-        return provinceService.searchByName(regionId, name);
+        return provinceService.searchByName(regionId, name.toLowerCase());
     }
 
     @GetMapping("/search/paged")
@@ -43,6 +41,6 @@ public class ProvinceController {
                                        @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return provinceService.searchByName(regionId, name, pageRequest);
+        return provinceService.searchByName(regionId, name.toLowerCase(), pageRequest);
     }
 }

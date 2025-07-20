@@ -4,6 +4,7 @@ import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -19,10 +20,13 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
     @Override
-    public List<City> getAll(int regionId,
-                             int provinceId) {
+    @Cacheable(cacheNames = "cities", key = "{#regionId, #provinceId}")
+    public List<CityDTO> getAll(int regionId,
+                                int provinceId) {
 
-        return cityRepository.findAll(regionId, provinceId);
+        return cityRepository.findAll(regionId, provinceId).stream()
+                .map(City::toDTO)
+                .toList();
     }
 
     @Override

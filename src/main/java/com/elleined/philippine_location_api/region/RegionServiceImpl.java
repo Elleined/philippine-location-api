@@ -28,32 +28,21 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    @Cacheable(cacheNames = "regions", key = "{#request.page(), #request.size()}")
-    public Page<RegionDTO> getAll(PageRequest request) {
-        List<RegionDTO> regions = regionRepository.findAll(request.getOffset(), request.size()).stream()
-                .map(Region::toDTO)
-                .toList();
-
+    public Page<Region> getAll(PageRequest request) {
+        List<Region> regions = regionRepository.findAll(request.getOffset(), request.size());
         return new Page<>(regions, request, regionRepository.findAllTotal());
     }
 
     @Override
-    @Cacheable(cacheNames = "regions", key = "#name")
-    public List<RegionDTO> searchByName(String name) {
-        return regionRepository.searchByName(name).stream()
-                .map(Region::toDTO)
-                .toList();
+    public List<Region> searchByName(String name) {
+        return regionRepository.searchByName(name);
     }
 
     @Override
-    @Cacheable(cacheNames = "regions", key = "{#name, #request.page(), #request.size()}")
-    public Page<RegionDTO> searchByName(PageRequest request,
-                                        String name) {
+    public Page<Region> searchByName(PageRequest request,
+                                     String name) {
 
-        List<RegionDTO> regions = regionRepository.searchByName(name, request.getOffset(), request.size()).stream()
-                .map(Region::toDTO)
-                .toList();
-
+        List<Region> regions = regionRepository.searchByName(name, request.getOffset(), request.size());
         return new Page<>(regions, request, regionRepository.searchByNameTotal(name));
     }
 }

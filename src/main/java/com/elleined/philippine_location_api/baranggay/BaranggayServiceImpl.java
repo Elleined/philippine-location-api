@@ -4,6 +4,7 @@ import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -19,11 +20,14 @@ public class BaranggayServiceImpl implements BaranggayService {
     private final BaranggayRepository baranggayRepository;
 
     @Override
-    public List<Baranggay> getAll(int regionId,
-                                  int provinceId,
-                                  int cityId) {
+    @Cacheable(cacheNames = "baranggays", key = "{#regionId, #provinceId, #cityId}")
+    public List<BaranggayDTO> getAll(int regionId,
+                                     int provinceId,
+                                     int cityId) {
 
-        return baranggayRepository.findAll(regionId, provinceId, cityId);
+        return baranggayRepository.findAll(regionId, provinceId, cityId).stream()
+                .map(Baranggay::toDTO)
+                .toList();
     }
 
     @Override
