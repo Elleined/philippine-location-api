@@ -8,8 +8,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.jdbc.UncategorizedSQLException;
-import org.springframework.test.context.TestPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,12 +22,17 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
-@TestPropertySource(locations = "classpath:.env.test")
+@Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class RegionRepositoryTest {
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @Container
+    @ServiceConnection
+    private final static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
+            .withReuse(true);
 
     @Test
     void findAll_HappyPath() {
