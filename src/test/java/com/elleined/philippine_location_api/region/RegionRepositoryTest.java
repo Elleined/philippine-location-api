@@ -36,8 +36,6 @@ class RegionRepositoryTest {
 
     @Test
     void findAll_HappyPath() {
-        // Pre defined values
-
         // Expected Value
 
         // Mock data
