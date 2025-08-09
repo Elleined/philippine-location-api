@@ -5,16 +5,20 @@ import com.elleined.philippine_location_api.paging.PageRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RegionController.class)
 class RegionControllerTest {
@@ -41,7 +45,10 @@ class RegionControllerTest {
         // Calling the method
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/regions"))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$", isA(List.class)))
+                    .andExpect(jsonPath("$", empty()));
         });
 
         // Behavior Verifications
@@ -71,7 +78,14 @@ class RegionControllerTest {
             mockMvc.perform(get("/regions/paged")
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content", isA(List.class)))
+                    .andExpect(jsonPath("$.content", empty()))
+                    .andExpect(jsonPath("$.content.length()", lessThanOrEqualTo(size)))
+                    .andExpect(jsonPath("$.request.page", is(page)))
+                    .andExpect(jsonPath("$.request.size", is(size)))
+                    .andExpect(jsonPath("$.totalElements", isA(Number.class)));
         });
 
         // Behavior Verifications
@@ -102,8 +116,13 @@ class RegionControllerTest {
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.request.page").value(page))
-                    .andExpect(jsonPath("$.request.size").value(size));
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content", isA(List.class)))
+                    .andExpect(jsonPath("$.content", empty()))
+                    .andExpect(jsonPath("$.content.length()", lessThanOrEqualTo(size)))
+                    .andExpect(jsonPath("$.request.page", is(page)))
+                    .andExpect(jsonPath("$.request.size", is(size)))
+                    .andExpect(jsonPath("$.totalElements", isA(Number.class)));
         });
 
         // Behavior Verifications
@@ -130,7 +149,10 @@ class RegionControllerTest {
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/regions/search")
                             .param("name", name))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$", isA(List.class)))
+                    .andExpect(jsonPath("$", empty()));
         });
 
         // Behavior Verifications
@@ -162,7 +184,14 @@ class RegionControllerTest {
                             .param("name", name)
                             .param("page", String.valueOf(page))
                             .param("size", String.valueOf(size)))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content", isA(List.class)))
+                    .andExpect(jsonPath("$.content", empty()))
+                    .andExpect(jsonPath("$.content.length()", lessThanOrEqualTo(size)))
+                    .andExpect(jsonPath("$.request.page", is(page)))
+                    .andExpect(jsonPath("$.request.size", is(size)))
+                    .andExpect(jsonPath("$.totalElements", isA(Number.class)));
         });
 
         // Behavior Verifications
@@ -192,8 +221,13 @@ class RegionControllerTest {
         mockMvc.perform(get("/regions/search/paged")
                         .param("name", name))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.request.page").value(page))
-                .andExpect(jsonPath("$.request.size").value(size));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content", isA(List.class)))
+                .andExpect(jsonPath("$.content", empty()))
+                .andExpect(jsonPath("$.content.length()", lessThanOrEqualTo(size)))
+                .andExpect(jsonPath("$.request.page", is(page)))
+                .andExpect(jsonPath("$.request.size", is(size)))
+                .andExpect(jsonPath("$.totalElements", isA(Number.class)));
 
         // Behavior Verifications
         verify(regionService).searchByName(any(PageRequest.class), anyString());
