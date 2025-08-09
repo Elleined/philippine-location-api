@@ -57,9 +57,11 @@ class RegionControllerTest {
         // Expected Value
 
         // Mock data
+        int page = 1;
+        int size = 10;
 
         // Set up method
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(1, 10), 10);
+        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
 
         // Stubbing methods
         when(regionService.getAll(any(PageRequest.class))).thenReturn(regions);
@@ -67,8 +69,8 @@ class RegionControllerTest {
         // Calling the method
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/regions/paged")
-                            .param("page", "1")
-                            .param("size", "10"))
+                            .param("page", String.valueOf(page))
+                            .param("size", String.valueOf(size)))
                     .andExpect(status().isOk());
         });
 
@@ -79,7 +81,7 @@ class RegionControllerTest {
     }
 
     @Test
-    void getAllPaged_ShouldHaveTheDefault_PageOf1_AndSizeOf10_WhenNotProvided() throws Exception {
+    void getAllPaged_ShouldHaveTheDefault_PageOf1_AndSizeOf10_WhenNotProvided() {
         // Pre defined values
 
         // Expected Value
@@ -95,11 +97,14 @@ class RegionControllerTest {
         when(regionService.getAll(any(PageRequest.class))).thenReturn(regions);
 
         // Calling the method
-        mockMvc.perform(get("/regions/paged")
-                        .param("name", "name"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.request.page").value(page))
-                .andExpect(jsonPath("$.request.size").value(size));
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(get("/regions/paged")
+                            .param("page", String.valueOf(page))
+                            .param("size", String.valueOf(size)))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.request.page").value(page))
+                    .andExpect(jsonPath("$.request.size").value(size));
+        });
 
         // Behavior Verifications
         verify(regionService).getAll(any(PageRequest.class));
@@ -114,6 +119,7 @@ class RegionControllerTest {
         // Expected Value
 
         // Mock data
+        String name = "3";
 
         // Set up method
 
@@ -123,7 +129,7 @@ class RegionControllerTest {
         // Calling the method
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/regions/search")
-                            .param("name", "name"))
+                            .param("name", name))
                     .andExpect(status().isOk());
         });
 
@@ -138,9 +144,12 @@ class RegionControllerTest {
         // Pre defined values
 
         // Expected Value
+        String name = "3";
+        int page = 1;
+        int size = 10;
 
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(1, 10), 10);
+        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
 
         // Set up method
 
@@ -150,9 +159,9 @@ class RegionControllerTest {
         // Calling the method
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/regions/search/paged")
-                            .param("name", "name")
-                            .param("page", "1")
-                            .param("size", "10"))
+                            .param("name", name)
+                            .param("page", String.valueOf(page))
+                            .param("size", String.valueOf(size)))
                     .andExpect(status().isOk());
         });
 
@@ -167,6 +176,7 @@ class RegionControllerTest {
         // Pre defined values
 
         // Expected Value
+        String name = "3";
         int page = 1;
         int size = 10;
 
@@ -180,7 +190,7 @@ class RegionControllerTest {
 
         // Calling the method
         mockMvc.perform(get("/regions/search/paged")
-                        .param("name", "name"))
+                        .param("name", name))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.request.page").value(page))
                 .andExpect(jsonPath("$.request.size").value(size));
