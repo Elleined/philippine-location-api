@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,7 +73,7 @@ class CityServiceImplTest {
         verify(cityRepository).findAll(anyInt(), anyInt());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceIdValues() {
@@ -112,7 +113,7 @@ class CityServiceImplTest {
         verifyNoInteractions(cityRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -143,7 +144,7 @@ class CityServiceImplTest {
         verify(cityRepository).findAllTotal(anyInt(), anyInt());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNullPageRequest() {
@@ -186,7 +187,7 @@ class CityServiceImplTest {
         verifyNoInteractions(cityRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -213,7 +214,7 @@ class CityServiceImplTest {
         verify(cityRepository).searchByName(anyInt(), anyInt(), anyString());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues() {
@@ -258,7 +259,7 @@ class CityServiceImplTest {
         verifyNoInteractions(cityRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -290,7 +291,7 @@ class CityServiceImplTest {
         verify(cityRepository).searchByNameTotal(anyInt(), anyInt(), anyString());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNullAndBlankName_AndNullPageRequestValues() {
@@ -339,6 +340,6 @@ class CityServiceImplTest {
         verifyNoInteractions(cityRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 }

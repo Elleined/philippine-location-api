@@ -6,7 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class PageRequestTest {
@@ -31,8 +33,8 @@ class PageRequestTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(page, request.page());
-        assertEquals(size, request.size());
+        assertThat(page).isEqualTo(request.page());
+        assertThat(size).isEqualTo(request.size());
     }
 
     @ParameterizedTest
@@ -82,6 +84,6 @@ class PageRequestTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(offset, request.getOffset());
+        assertThat(offset).isEqualTo(request.getOffset());
     }
 }

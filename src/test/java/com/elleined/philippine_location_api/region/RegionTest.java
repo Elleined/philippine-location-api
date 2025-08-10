@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(MockitoExtension.class)
 class RegionTest {
@@ -28,9 +29,9 @@ class RegionTest {
         // Behavior Verifications
 
         // Assertions
-        assertNotNull(regionDTO);
-        assertEquals(regionDTO.id(), region.id());
-        assertEquals(regionDTO.name(), region.name());
-        assertEquals(regionDTO.description(), region.description());
+        assertThat(regionDTO).isNotNull();
+        assertThat(regionDTO.id()).isEqualTo(region.id());
+        assertThat(regionDTO.name()).isEqualTo(region.name());
+        assertThat(regionDTO.description()).isEqualTo(region.description());
     }
 }

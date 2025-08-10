@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,7 +73,7 @@ class ProvinceServiceImplTest {
         verify(provinceRepository).findAll(anyInt());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -99,7 +100,7 @@ class ProvinceServiceImplTest {
         verifyNoInteractions(provinceRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -129,7 +130,7 @@ class ProvinceServiceImplTest {
         verify(provinceRepository).findAllTotal(anyInt());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionIdValues_AndNullPageRequest() {
@@ -168,7 +169,7 @@ class ProvinceServiceImplTest {
         verifyNoInteractions(provinceRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -194,7 +195,7 @@ class ProvinceServiceImplTest {
         verify(provinceRepository).searchByName(anyInt(), anyString());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNullAndBlankNameValues() {
@@ -235,7 +236,7 @@ class ProvinceServiceImplTest {
         verifyNoInteractions(provinceRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -266,7 +267,7 @@ class ProvinceServiceImplTest {
         verify(provinceRepository).searchByNameTotal(anyInt(), anyString());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNullAndBlankName_AndNullPageRequestValues() {
@@ -310,6 +311,6 @@ class ProvinceServiceImplTest {
         verifyNoInteractions(provinceRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 }

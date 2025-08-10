@@ -6,7 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(MockitoExtension.class)
 class BaranggayTest {
@@ -31,9 +32,9 @@ class BaranggayTest {
         // Behavior Verifications
 
         // Assertions
-        assertNotNull(baranggayDTO);
-        assertEquals(baranggayDTO.id(), baranggay.id());
-        assertEquals(baranggayDTO.name(), baranggay.name());
-        assertEquals(baranggayDTO.cityId(), baranggay.city().getId());
+        assertThat(baranggayDTO).isNotNull();
+        assertThat(baranggayDTO.id()).isEqualTo(baranggay.id());
+        assertThat(baranggayDTO.name()).isEqualTo(baranggay.name());
+        assertThat(baranggayDTO.cityId()).isEqualTo(baranggay.city().getId());
     }
 }

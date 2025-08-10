@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -73,7 +74,7 @@ class BaranggayServiceImplTest {
         verify(baranggayRepository).findAll(anyInt(), anyInt(), anyInt());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNegativeCityIdValues() {
@@ -117,7 +118,7 @@ class BaranggayServiceImplTest {
         verifyNoInteractions(baranggayRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -149,7 +150,7 @@ class BaranggayServiceImplTest {
         verify(baranggayRepository).findAllTotal(anyInt(), anyInt(), anyInt());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullPageRequest() {
@@ -196,7 +197,7 @@ class BaranggayServiceImplTest {
         verifyNoInteractions(baranggayRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -224,7 +225,7 @@ class BaranggayServiceImplTest {
         verify(baranggayRepository).searchByName(anyInt(), anyInt(), anyInt(), anyString());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNegativeCityId_AndNullAndBlankNameValues() {
@@ -273,7 +274,7 @@ class BaranggayServiceImplTest {
         verifyNoInteractions(baranggayRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -357,6 +358,6 @@ class BaranggayServiceImplTest {
         verifyNoInteractions(baranggayRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 }

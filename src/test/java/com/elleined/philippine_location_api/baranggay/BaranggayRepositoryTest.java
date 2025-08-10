@@ -19,7 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 @DataJdbcTest
 @Testcontainers
@@ -58,7 +60,7 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, baranggays);
+        assertThat(baranggays).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -108,7 +110,7 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, baranggays);
+        assertThat(baranggays).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -182,7 +184,7 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest
@@ -236,8 +238,8 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, baranggays);
+        assertThat(contains).isTrue();
+        assertThat(baranggays).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -293,8 +295,8 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, baranggays);
+        assertThat(contains).isTrue();
+        assertThat(baranggays).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -370,7 +372,7 @@ class BaranggayRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest

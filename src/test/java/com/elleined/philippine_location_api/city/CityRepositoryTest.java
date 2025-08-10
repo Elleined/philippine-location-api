@@ -19,7 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 @DataJdbcTest
 @Testcontainers
@@ -57,7 +59,7 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, cities);
+        assertThat(cities).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -106,7 +108,7 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, cities);
+        assertThat(cities).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -178,7 +180,7 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest
@@ -226,7 +228,7 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, cities);
+        assertThat(cities).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -281,8 +283,8 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, cities);
+        assertThat(contains).isTrue();
+        assertThat(cities).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -356,7 +358,7 @@ class CityRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest

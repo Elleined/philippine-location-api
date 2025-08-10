@@ -7,8 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class PageTest {
@@ -36,9 +35,9 @@ class PageTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(totalElements, pagination.totalElements());
-        assertEquals(list, pagination.content());
-        assertEquals(request, pagination.request());
+        assertThat(totalElements).isEqualTo(pagination.totalElements());
+        assertThat(list).isEqualTo(pagination.content());
+        assertThat(request).isEqualTo(pagination.request());
     }
 
     @Test
@@ -62,10 +61,9 @@ class PageTest {
         // Behavior Verifications
 
         // Assertions
-        assertFalse(pagination.getHasNext());
-        assertFalse(pagination.getHasPrevious());
-
-        assertEquals(1, pagination.getTotalPages());
+        assertThat(pagination.getHasNext()).isFalse();
+        assertThat(pagination.getHasPrevious()).isFalse();
+        assertThat(pagination.getTotalPages()).isEqualTo(1);
     }
 
     @Test
@@ -89,7 +87,7 @@ class PageTest {
         // Behavior Verifications
 
         // Assertions
-        assertFalse(objects.getHasNext());
+        assertThat(objects.getHasNext()).isFalse();
     }
 
     @Test
@@ -113,6 +111,6 @@ class PageTest {
         // Behavior Verifications
 
         // Assertions
-        assertFalse(objects.getHasPrevious());
+        assertThat(objects.getHasPrevious()).isFalse();
     }
 }

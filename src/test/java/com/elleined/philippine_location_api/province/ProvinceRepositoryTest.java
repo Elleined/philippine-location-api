@@ -20,7 +20,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 @DataJdbcTest
 @Testcontainers
@@ -57,7 +59,7 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, provinces);
+        assertThat(provinces).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -106,7 +108,7 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, provinces);
+        assertThat(provinces).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -176,7 +178,7 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest
@@ -229,8 +231,8 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, provinces);
+        assertThat(contains).isTrue();
+        assertThat(provinces).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -285,8 +287,8 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, provinces);
+        assertThat(contains).isTrue();
+        assertThat(provinces).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -358,7 +360,7 @@ class ProvinceRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest

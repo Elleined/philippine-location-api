@@ -19,7 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 @DataJdbcTest
 @Testcontainers
@@ -53,7 +55,7 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, regions);
+        assertThat(regions).isEqualTo(expected);
     }
 
     @Test
@@ -79,7 +81,7 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(expected, regions);
+        assertThat(regions).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -125,7 +127,7 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @Test
@@ -155,8 +157,8 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, regions);
+        assertThat(contains).isTrue();
+        assertThat(regions).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -209,8 +211,8 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(contains);
-        assertEquals(expected, regions);
+        assertThat(contains).isTrue();
+        assertThat(regions).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -279,7 +281,7 @@ class RegionRepositoryTest {
         // Behavior Verifications
 
         // Assertions
-        assertTrue(total >= 0);
+        assertThat(total).isGreaterThanOrEqualTo(0);
     }
 
     @ParameterizedTest

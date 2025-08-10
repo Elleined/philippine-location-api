@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,7 +69,7 @@ class RegionServiceImplTest {
         verify(regionRepository).findAll();
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -98,7 +100,7 @@ class RegionServiceImplTest {
 
         // Assertions
         assertNotNull(actual);
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> nullPageRequestValues() {
@@ -132,7 +134,7 @@ class RegionServiceImplTest {
 
         // Assertions
 
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
 
@@ -157,7 +159,7 @@ class RegionServiceImplTest {
         verify(regionRepository).searchByName(anyString());
 
         // Assertions
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static Stream<Arguments> nullAndBlankNameValues() {
@@ -192,7 +194,7 @@ class RegionServiceImplTest {
         verifyNoInteractions(regionRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 
     @Test
@@ -223,7 +225,7 @@ class RegionServiceImplTest {
         verify(regionRepository).searchByNameTotal(anyString());
 
         // Assertions
-        assertEquals(expected, actual.content());
+        assertThat(actual.content()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> nullPageRequest_AndBlankAndNullNameValues() {
@@ -263,6 +265,6 @@ class RegionServiceImplTest {
         verifyNoInteractions(regionRepository);
 
         // Assertions
-        assertFalse(violations.isEmpty());
+        assertThat(violations).isNotEmpty();
     }
 }
