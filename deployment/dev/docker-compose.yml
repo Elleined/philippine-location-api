@@ -1,5 +1,5 @@
 services:
-  dev-mysql-server:
+  dev-pla-mysql-server:
     image: mysql:${MYSQL_IMAGE_TAG}
     container_name: ${MYSQL_CONTAINER_NAME}
     environment:
@@ -9,7 +9,7 @@ services:
     ports:
       - "${MYSQL_HOST_PORT}:3306"
     networks:
-      - pla-network
+      - dev-pla-network
     volumes:
       - ${MYSQL_BIND_MOUNT_PATH}:/docker-entrypoint-initdb.d/init.sql
       - /etc/localtime:/etc/localtime:ro
@@ -21,7 +21,7 @@ services:
       retries: 5
       start_period: 30s
 
-  dev-redis-server:
+  dev-pla-redis-server:
     image: redis:${REDIS_IMAGE_TAG}
     container_name: ${REDIS_CONTAINER_NAME}
     environment:
@@ -30,7 +30,7 @@ services:
     ports:
       - "${REDIS_HOST_PORT}:6379"
     networks:
-      - pla-network
+      - dev-pla-network
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -42,7 +42,7 @@ services:
       start_period: 30s
 
 networks:
-  pla-network:
+  dev-pla-network:
     name: ${NETWORK_NAME}
     external: false
     ipam:
