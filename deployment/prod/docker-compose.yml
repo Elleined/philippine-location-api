@@ -8,10 +8,10 @@ services:
       - MYSQL_HOST=${MYSQL_CONTAINER_NAME}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_HOST_PORT=3306
+      - MYSQL_PORT=${MYSQL_CONTAINER_PORT}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - REDIS_HOST=${REDIS_CONTAINER_NAME}
-      - REDIS_HOST_PORT=6379
+      - REDIS_PORT=${REDIS_CONTAINER_PORT}
       - REDIS_DATABASE=${REDIS_DATABASE}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_TTL=${REDIS_TTL}
@@ -46,7 +46,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "${MYSQL_HOST_PORT}:3306"
+      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
     networks:
       - prod-pla-network
     volumes:
@@ -67,7 +67,7 @@ services:
       - TZ=Asia/Manila
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
-      - "${REDIS_HOST_PORT}:6379"
+      - "${REDIS_HOST_PORT}:${REDIS_CONTAINER_PORT}"
     networks:
       - prod-pla-network
     volumes:
