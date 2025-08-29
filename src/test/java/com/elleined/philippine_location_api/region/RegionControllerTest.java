@@ -101,9 +101,8 @@ class RegionControllerTest {
         // Expected Value
         int page = 1;
         int size = 10;
-
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
+        Page<Region> regions = new Page<>(new ArrayList<>(), null, size);
 
         // Set up method
 
@@ -112,9 +111,7 @@ class RegionControllerTest {
 
         // Calling the method
         assertDoesNotThrow(() -> {
-            mockMvc.perform(get("/regions/paged")
-                            .param("page", String.valueOf(page))
-                            .param("size", String.valueOf(size)))
+            mockMvc.perform(get("/regions/paged"))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.content", isA(List.class)))
