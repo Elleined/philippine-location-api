@@ -25,7 +25,7 @@ BEGIN
     WHERE r.id = p_region_id
     AND p.id = p_province_id
     AND c.id = p_city_id
-    ORDER BY b.name;
+    ORDER BY b.name ASC;
 END //
 DELIMITER ;
 
@@ -138,7 +138,7 @@ BEGIN
     AND p.id = p_province_id
     AND c.id = p_city_id
     AND b.name LIKE CONCAT('%', p_name, '%')
-    ORDER BY b.name;
+    ORDER BY b.name ASC;
 END //
 DELIMITER ;
 

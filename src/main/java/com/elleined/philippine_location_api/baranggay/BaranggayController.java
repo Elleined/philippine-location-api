@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/regions/{regionId}/provinces/{provinceId}/cities/{cityId}/baranggays")
@@ -38,7 +39,7 @@ public class BaranggayController {
                                         @PathVariable("cityId") int cityId,
                                         @RequestParam("name") String name) {
 
-        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase());
+        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase(Locale.ROOT));
     }
 
     @GetMapping("/search/paged")
@@ -50,6 +51,6 @@ public class BaranggayController {
                                         @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase(), pageRequest);
+        return baranggayService.searchByName(regionId, provinceId, cityId, name.toLowerCase(Locale.ROOT), pageRequest);
     }
 }

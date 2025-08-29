@@ -24,12 +24,13 @@ class BaranggayControllerIntegrationTest {
 
     @Container
     @ServiceConnection
-    private final static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
+    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
             .withReuse(true);
     @Container
     @ServiceConnection
-    private final static RedisContainer redisContainer = new RedisContainer("redis:8.0.2-alpine")
+    private static final RedisContainer redisContainer = new RedisContainer("redis:8.0.2-alpine")
             .withReuse(true);
+
     @Autowired
     private MockMvc mockMvc;
 

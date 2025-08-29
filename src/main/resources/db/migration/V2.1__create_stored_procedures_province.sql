@@ -10,7 +10,7 @@ BEGIN
     SELECT *
     FROM province
     WHERE region_id = p_region_id
-    ORDER BY name;
+    ORDER BY name ASC;
 END //
 DELIMITER ;
 
@@ -78,7 +78,7 @@ BEGIN
     FROM province
     WHERE region_id = p_region_id
     AND name LIKE CONCAT('%', p_name, '%')
-    ORDER BY name;
+    ORDER BY name ASC;
 END //
 DELIMITER ;
 

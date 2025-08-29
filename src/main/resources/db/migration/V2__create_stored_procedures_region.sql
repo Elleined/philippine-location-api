@@ -3,7 +3,7 @@ CREATE PROCEDURE region_get_all()
 BEGIN
     SELECT *
     FROM region
-    ORDER BY name;
+    ORDER BY name ASC;
 END //
 DELIMITER ;
 
@@ -52,7 +52,7 @@ BEGIN
     SELECT *
     FROM region
     WHERE name LIKE CONCAT('%', p_name, '%')
-    ORDER BY name;
+    ORDER BY name ASC;
 END //
 DELIMITER ;
 

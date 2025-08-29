@@ -17,6 +17,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +34,7 @@ class CityRepositoryTest {
 
     @Container
     @ServiceConnection
-    private final static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
+    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
             .withReuse(true);
 
     @Test
@@ -213,7 +214,7 @@ class CityRepositoryTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        String name = "name".toLowerCase();
+        String name = "name".toLowerCase(Locale.ROOT);
 
         // Set up method
 
@@ -261,7 +262,7 @@ class CityRepositoryTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        String name = "name".toLowerCase();
+        String name = "name".toLowerCase(Locale.ROOT);
         int page = 1;
         int size = 1;
 
@@ -300,7 +301,7 @@ class CityRepositoryTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        String name = "name".toLowerCase();
+        String name = "name".toLowerCase(Locale.ROOT);
 
         // Set up method
 
@@ -346,7 +347,7 @@ class CityRepositoryTest {
         // Mock data
         int regionId = 1;
         int provinceId = 1;
-        String name = "name".toLowerCase();
+        String name = "name".toLowerCase(Locale.ROOT);
 
         // Set up method
 
@@ -401,7 +402,7 @@ class CityRepositoryTest {
     private static Stream<Arguments> negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues() {
         int regionId = 1;
         int provinceId = 1;
-        String name = "name".toLowerCase();
+        String name = "name".toLowerCase(Locale.ROOT);
 
         return Stream.of(
                 // Null and blank values

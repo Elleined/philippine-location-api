@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/regions")
@@ -31,7 +32,7 @@ public class RegionController {
 
     @GetMapping("/search")
     public List<Region> searchByName(@RequestParam("name") String name) {
-        return regionService.searchByName(name.toLowerCase());
+        return regionService.searchByName(name.toLowerCase(Locale.ROOT));
     }
 
     @GetMapping("/search/paged")
@@ -40,6 +41,6 @@ public class RegionController {
                                      @RequestParam(value = "size", defaultValue = "10") int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return regionService.searchByName(pageRequest, name.toLowerCase());
+        return regionService.searchByName(pageRequest, name.toLowerCase(Locale.ROOT));
     }
 }

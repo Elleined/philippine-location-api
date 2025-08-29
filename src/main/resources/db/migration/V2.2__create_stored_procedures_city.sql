@@ -18,7 +18,7 @@ BEGIN
     JOIN region r ON r.id = p.region_id
     WHERE r.id = p_region_id
     AND p.id = p_province_id
-    ORDER BY c.name;
+    ORDER BY c.name ASC;
 END //
 DELIMITER ;
 
@@ -110,7 +110,7 @@ BEGIN
     WHERE r.id = p_region_id
     AND p.id = p_province_id
     AND c.name LIKE CONCAT('%', p_name, '%')
-    ORDER BY c.name;
+    ORDER BY c.name ASC;
 END //
 DELIMITER ;
 
