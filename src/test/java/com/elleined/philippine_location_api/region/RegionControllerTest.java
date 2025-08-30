@@ -102,7 +102,7 @@ class RegionControllerTest {
         int page = 1;
         int size = 10;
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), null, size);
+        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), size);
 
         // Set up method
 
