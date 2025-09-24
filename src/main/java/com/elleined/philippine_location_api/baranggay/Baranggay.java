@@ -10,8 +10,4 @@ import org.springframework.data.relational.core.mapping.Table;
 public record Baranggay(@Id Long id,
                         String name,
                         @Column("city_id") AggregateReference<City, Long> city) {
-
-    public BaranggayDTO toDTO() {
-        return new BaranggayDTO(this.id(), this.name(), this.city().getId());
-    }
 }

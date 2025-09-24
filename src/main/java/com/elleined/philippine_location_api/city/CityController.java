@@ -1,12 +1,9 @@
 package com.elleined.philippine_location_api.city;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,38 +12,13 @@ public class CityController {
     private final CityService cityService;
 
     @GetMapping
-    public List<CityDTO> getAll(@PathVariable("regionId") int regionId,
-                               @PathVariable("provinceId") int provinceId) {
+    public Pageable<City> searchByName(@PathVariable("regionId") int regionId,
+                                       @PathVariable("provinceId") int provinceId,
+                                       @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                       @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                       @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
-        return cityService.getAll(regionId, provinceId);
-    }
-
-    @GetMapping("/paged")
-    public Page<City> getAll(@PathVariable("regionId") int regionId,
-                               @PathVariable("provinceId") int provinceId,
-                               @RequestParam(value = "page", defaultValue = "1") int page,
-                               @RequestParam(value = "size", defaultValue = "10") int size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return cityService.getAll(regionId, provinceId, pageRequest);
-    }
-
-    @GetMapping("/search")
-    public List<City> searchByName(@PathVariable("regionId") int regionId,
-                                   @PathVariable("provinceId") int provinceId,
-                                   @RequestParam("name") String name) {
-
-        return cityService.searchByName(regionId, provinceId, name.toLowerCase(Locale.ROOT));
-    }
-
-    @GetMapping("/search/paged")
-    public Page<City> searchByName(@PathVariable("regionId") int regionId,
-                                   @PathVariable("provinceId") int provinceId,
-                                   @RequestParam("name") String name,
-                                   @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "size", defaultValue = "10") int size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return cityService.searchByName(regionId, provinceId, name.toLowerCase(Locale.ROOT), pageRequest);
+        PageRequest request = PageRequest.of(page, size);
+        return cityService.findAllBy(regionId, provinceId, name, request);
     }
 }

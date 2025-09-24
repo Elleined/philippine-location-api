@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.city;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import com.elleined.philippine_location_api.province.Province;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -137,7 +137,7 @@ class CityServiceImplTest {
         when(cityRepository.findAllTotal(anyInt(), anyInt())).thenReturn(expected.size());
 
         // Calling the method
-        Page<City> actual = assertDoesNotThrow(() -> cityService.getAll(regionId, provinceId, request));
+        Pageable<City> actual = assertDoesNotThrow(() -> cityService.getAll(regionId, provinceId, request));
 
         // Behavior Verifications
         verify(cityRepository).findAll(anyInt(), anyInt(), anyInt(), anyInt());
@@ -191,7 +191,7 @@ class CityServiceImplTest {
     }
 
     @Test
-    void searchByName_HappyPath() {
+    void findAllBy_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -205,13 +205,13 @@ class CityServiceImplTest {
         // Set up method
 
         // Stubbing methods
-        when(cityRepository.searchByName(anyInt(), anyInt(), anyString())).thenReturn(expected);
+        when(cityRepository.findAllBy(anyInt(), anyInt(), anyString())).thenReturn(expected);
 
         // Calling the method
         List<City> actual = assertDoesNotThrow(() -> cityService.searchByName(regionId, provinceId, name));
 
         // Behavior Verifications
-        verify(cityRepository).searchByName(anyInt(), anyInt(), anyString());
+        verify(cityRepository).findAllBy(anyInt(), anyInt(), anyString());
 
         // Assertions
         assertThat(actual).isEqualTo(expected);
@@ -237,7 +237,7 @@ class CityServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
-    void searchByName_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameInput(int regionId, int provinceId, String name) throws NoSuchMethodException {
+    void findAllByName_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankInput(int regionId, int provinceId, String name) throws NoSuchMethodException {
         // Pre defined values
 
         // Expected Value
@@ -251,7 +251,7 @@ class CityServiceImplTest {
         // Calling the method
         Set<ConstraintViolation<CityService>> violations = executableValidator.validateParameters(
                 cityService,
-                CityService.class.getMethod("searchByName", int.class, int.class, String.class),
+                CityService.class.getMethod("findAllBy", int.class, int.class, String.class),
                 new Object[]{regionId, provinceId, name}
         );
 
@@ -263,7 +263,7 @@ class CityServiceImplTest {
     }
 
     @Test
-    void searchByNamePaged_HappyPath() {
+    void findAllByPaged_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -280,15 +280,15 @@ class CityServiceImplTest {
         // Set up method
 
         // Stubbing methods
-        when(cityRepository.searchByName(anyInt(), anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
-        when(cityRepository.searchByNameTotal(anyInt(), anyInt(), anyString())).thenReturn(expected.size());
+        when(cityRepository.findAllBy(anyInt(), anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
+        when(cityRepository.findAllByTotal(anyInt(), anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
-        Page<City> actual = assertDoesNotThrow(() -> cityService.searchByName(regionId, provinceId, name, request));
+        Pageable<City> actual = assertDoesNotThrow(() -> cityService.findAllBy(regionId, provinceId, name, request));
 
         // Behavior Verifications
-        verify(cityRepository).searchByName(anyInt(), anyInt(), anyString(), anyInt(), anyInt());
-        verify(cityRepository).searchByNameTotal(anyInt(), anyInt(), anyString());
+        verify(cityRepository).findAllBy(anyInt(), anyInt(), anyString(), anyInt(), anyInt());
+        verify(cityRepository).findAllByTotal(anyInt(), anyInt(), anyString());
 
         // Assertions
         assertThat(actual.content()).isEqualTo(expected);
@@ -317,7 +317,7 @@ class CityServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankName_AndNullPageRequestValues")
-    void searchByNamePaged_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName_AndNullPageRequestInput(int regionId, int provinceId, String name, PageRequest request) throws NoSuchMethodException {
+    void findAllByNamePaged_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank_AndNullPageRequestInput(int regionId, int provinceId, String name, PageRequest request) throws NoSuchMethodException {
         // Pre defined values
 
         // Expected Value
@@ -331,7 +331,7 @@ class CityServiceImplTest {
         // Calling the method
         Set<ConstraintViolation<CityService>> violations = executableValidator.validateParameters(
                 cityService,
-                CityService.class.getMethod("searchByName", int.class, int.class, String.class, PageRequest.class),
+                CityService.class.getMethod("findAllBy", int.class, int.class, String.class, PageRequest.class),
                 new Object[]{regionId, provinceId, name, request}
         );
 

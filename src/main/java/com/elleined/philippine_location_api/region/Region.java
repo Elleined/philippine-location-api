@@ -7,9 +7,4 @@ import org.springframework.data.relational.core.mapping.Table;
 public record Region(@Id Long id,
                      String name,
                      String description) {
-
-
-    public RegionDTO toDTO() {
-        return new RegionDTO(this.id(), this.name(), this.description());
-    }
 }

@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.baranggay;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -74,7 +74,7 @@ class BaranggayControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Baranggay> expected = new Pageable<>(new ArrayList<>(), request, 10);
         // Set up method
 
         // Stubbing methods
@@ -114,7 +114,7 @@ class BaranggayControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Baranggay> expected = new Pageable<>(new ArrayList<>(), request, 10);
         // Set up method
 
         // Stubbing methods
@@ -187,7 +187,7 @@ class BaranggayControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Baranggay> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
@@ -230,7 +230,7 @@ class BaranggayControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Baranggay> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Baranggay> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 

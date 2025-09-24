@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.province;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import com.elleined.philippine_location_api.region.Region;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -123,7 +123,7 @@ class ProvinceServiceImplTest {
         when(provinceRepository.findAllTotal(anyInt())).thenReturn(expected.size());
 
         // Calling the method
-        Page<Province> actual = assertDoesNotThrow(() -> provinceService.getAll(regionId, request));
+        Pageable<Province> actual = assertDoesNotThrow(() -> provinceService.getAll(regionId, request));
 
         // Behavior Verifications
         verify(provinceRepository).findAll(anyInt(), anyInt(), anyInt());
@@ -186,13 +186,13 @@ class ProvinceServiceImplTest {
         // Set up method
 
         // Stubbing method
-        when(provinceRepository.searchByName(anyInt(), anyString())).thenReturn(expected);
+        when(provinceRepository.findAllBy(anyInt(), anyString())).thenReturn(expected);
 
         // Calling the method
-        List<Province> actual = assertDoesNotThrow(() -> provinceService.searchByName(regionId, name));
+        List<Province> actual = assertDoesNotThrow(() -> provinceService.findAllByTotal(regionId, name));
 
         // Behavior Verifications
-        verify(provinceRepository).searchByName(anyInt(), anyString());
+        verify(provinceRepository).findAllBy(anyInt(), anyString());
 
         // Assertions
         assertThat(actual).isEqualTo(expected);
@@ -256,15 +256,15 @@ class ProvinceServiceImplTest {
         // Set up method
 
         // Stubbing methods
-        when(provinceRepository.searchByName(anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
-        when(provinceRepository.searchByNameTotal(anyInt(), anyString())).thenReturn(expected.size());
+        when(provinceRepository.findAllBy(anyInt(), anyString(), anyInt(), anyInt())).thenReturn(expected);
+        when(provinceRepository.findAllByTotal(anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
-        Page<Province> actual = assertDoesNotThrow(() -> provinceService.searchByName(regionId, name, request));
+        Pageable<Province> actual = assertDoesNotThrow(() -> provinceService.findAllBy(regionId, name, request));
 
         // Behavior Verifications
-        verify(provinceRepository).searchByName(anyInt(), anyString(), anyInt(), anyInt());
-        verify(provinceRepository).searchByNameTotal(anyInt(), anyString());
+        verify(provinceRepository).findAllBy(anyInt(), anyString(), anyInt(), anyInt());
+        verify(provinceRepository).findAllByTotal(anyInt(), anyString());
 
         // Assertions
         assertThat(actual.content()).isEqualTo(expected);

@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.city;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -72,7 +72,7 @@ class CityControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<City> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
@@ -112,7 +112,7 @@ class CityControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<City> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
@@ -151,7 +151,7 @@ class CityControllerTest {
         List<City> expected = new ArrayList<>();
 
         // Set up method
-        when(cityService.searchByName(anyInt(), anyInt(), anyString())).thenReturn(expected);
+        when(cityService.findAllBy(anyInt(), anyInt(), anyString())).thenReturn(expected);
 
         // Stubbing methods
         assertDoesNotThrow(() -> {
@@ -164,7 +164,7 @@ class CityControllerTest {
         });
 
         // Calling the method
-        verify(cityService).searchByName(anyInt(), anyInt(), anyString());
+        verify(cityService).findAllBy(anyInt(), anyInt(), anyString());
 
         // Behavior Verifications
 
@@ -184,10 +184,10 @@ class CityControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<City> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
-        when(cityService.searchByName(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(cityService.findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Stubbing methods
 
@@ -208,7 +208,7 @@ class CityControllerTest {
         });
 
         // Behavior Verifications
-        verify(cityService).searchByName(anyInt(), anyInt(), anyString(), any(PageRequest.class));
+        verify(cityService).findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }
@@ -224,10 +224,10 @@ class CityControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<City> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
-        when(cityService.searchByName(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(cityService.findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Stubbing methods
 
@@ -246,7 +246,7 @@ class CityControllerTest {
         });
 
         // Behavior Verifications
-        verify(cityService).searchByName(anyInt(), anyInt(), anyString(), any(PageRequest.class));
+        verify(cityService).findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }

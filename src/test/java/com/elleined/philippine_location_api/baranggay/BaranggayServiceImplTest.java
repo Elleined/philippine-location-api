@@ -1,8 +1,8 @@
 package com.elleined.philippine_location_api.baranggay;
 
 import com.elleined.philippine_location_api.city.City;
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -143,7 +143,7 @@ class BaranggayServiceImplTest {
         when(baranggayRepository.findAllTotal(anyInt(), anyInt(), anyInt())).thenReturn(expected.size());
 
         // Calling the method
-        Page<Baranggay> actual = assertDoesNotThrow(() -> baranggayService.getAll(regionId, provinceId, cityId, request));
+        Pageable<Baranggay> actual = assertDoesNotThrow(() -> baranggayService.getAll(regionId, provinceId, cityId, request));
 
         // Behavior Verifications
         verify(baranggayRepository).findAll(anyInt(), anyInt(), anyInt(), anyInt(), anyInt());

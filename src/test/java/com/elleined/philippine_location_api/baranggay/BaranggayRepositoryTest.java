@@ -34,7 +34,7 @@ class BaranggayRepositoryTest {
 
     @Container
     @ServiceConnection
-    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
+    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.4.6")
             .withReuse(true);
 
     @Test

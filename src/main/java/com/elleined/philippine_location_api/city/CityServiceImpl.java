@@ -1,10 +1,9 @@
 package com.elleined.philippine_location_api.city;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -20,39 +19,14 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
     @Override
-    @Cacheable(cacheNames = "cities", key = "{#regionId, #provinceId}")
-    public List<CityDTO> getAll(int regionId,
-                                int provinceId) {
+    public Pageable<City> findAllBy(int regionId,
+                                    int provinceId,
+                                    String name,
+                                    PageRequest request) {
 
-        return cityRepository.findAll(regionId, provinceId).stream()
-                .map(City::toDTO)
-                .toList();
-    }
+        int totalElements = cityRepository.findAllByTotal(regionId, provinceId, name);
+        List<City> cities = cityRepository.findAllBy(regionId, provinceId, name, request.page(), request.size());
 
-    @Override
-    public Page<City> getAll(int regionId,
-                             int provinceId,
-                             PageRequest request) {
-
-        List<City> cities = cityRepository.findAll(regionId, provinceId, request.getOffset(), request.size());
-        return new Page<>(cities, request, cityRepository.findAllTotal(regionId, provinceId));
-    }
-
-    @Override
-    public List<City> searchByName(int regionId,
-                                   int provinceId,
-                                   String name) {
-
-        return cityRepository.searchByName(regionId, provinceId, name);
-    }
-
-    @Override
-    public Page<City> searchByName(int regionId,
-                                   int provinceId,
-                                   String name,
-                                   PageRequest request) {
-
-        List<City> cities = cityRepository.searchByName(regionId, provinceId, name, request.getOffset(), request.size());
-        return new Page<>(cities, request, cityRepository.searchByNameTotal(regionId, provinceId, name));
+        return new Pageable<>(cities, request, totalElements);
     }
 }

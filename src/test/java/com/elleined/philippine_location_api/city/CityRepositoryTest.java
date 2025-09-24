@@ -34,7 +34,7 @@ class CityRepositoryTest {
 
     @Container
     @ServiceConnection
-    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.39")
+    private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.4.6")
             .withReuse(true);
 
     @Test
@@ -206,7 +206,7 @@ class CityRepositoryTest {
     }
 
     @Test
-    void searchByName_HappyPath() {
+    void findAllBy_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -221,7 +221,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        List<City> cities = assertDoesNotThrow(() -> cityRepository.searchByName(regionId, provinceId, name));
+        List<City> cities = assertDoesNotThrow(() -> cityRepository.findAllBy(regionId, provinceId, name));
 
         List<City> expected = new ArrayList<>(cities);
         expected.sort(Comparator.comparing(City::name));
@@ -234,7 +234,7 @@ class CityRepositoryTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
-    void searchByName_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+    void findAllByName_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank(int regionId, int provinceId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -246,7 +246,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.searchByName(regionId, provinceId, name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.findAllBy(regionId, provinceId, name));
 
         // Behavior Verifications
 
@@ -254,7 +254,7 @@ class CityRepositoryTest {
     }
 
     @Test
-    void searchByNamePaged_HappyPath() {
+    void findAllByPaged_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -271,7 +271,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        List<City> cities = assertDoesNotThrow(() -> cityRepository.searchByName(regionId, provinceId, name, page, size));
+        List<City> cities = assertDoesNotThrow(() -> cityRepository.findAllBy(regionId, provinceId, name, page, size));
 
         List<City> expected = new ArrayList<>(cities);
         expected.sort(Comparator.comparing(City::name));
@@ -293,7 +293,7 @@ class CityRepositoryTest {
             "-1, 10",
             "10, -1"
     })
-    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
+    void findAllByPaged_ShouldThrowUncategorizedSQLException_ForInvalidPageNumberAndPageSize(int page, int size) {
         // Pre defined values
 
         // Expected Value
@@ -308,7 +308,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.searchByName(regionId, provinceId, name, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.findAllBy(regionId, provinceId, name, page, size));
 
         // Behavior Verifications
 
@@ -317,7 +317,7 @@ class CityRepositoryTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
-    void searchByNamePaged_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+    void findAllByNamePaged_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank(int regionId, int provinceId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -331,7 +331,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.searchByName(regionId, provinceId, name, page, size));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.findAllBy(regionId, provinceId, name, page, size));
 
         // Behavior Verifications
 
@@ -339,7 +339,7 @@ class CityRepositoryTest {
     }
 
     @Test
-    void searchByNameTotal_HappyPath() {
+    void findAllByTotal_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -354,7 +354,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        int total = assertDoesNotThrow(() -> cityRepository.searchByNameTotal(regionId, provinceId,  name));
+        int total = assertDoesNotThrow(() -> cityRepository.findAllByTotal(regionId, provinceId, name));
 
         // Behavior Verifications
 
@@ -364,7 +364,7 @@ class CityRepositoryTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
-    void searchByNameTotal_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankName(int regionId, int provinceId, String name) {
+    void findAllByNameTotal_ShouldThrowUncategorizedSQLException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank(int regionId, int provinceId, String name) {
         // Pre defined values
 
         // Expected Value
@@ -376,7 +376,7 @@ class CityRepositoryTest {
         // Stubbing methods
 
         // Calling the method
-        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.searchByNameTotal(regionId, provinceId,  name));
+        assertThrowsExactly(UncategorizedSQLException.class, () -> cityRepository.findAllByTotal(regionId, provinceId, name));
 
         // Behavior Verifications
 

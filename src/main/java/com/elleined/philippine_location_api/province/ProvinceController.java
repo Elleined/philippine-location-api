@@ -1,12 +1,9 @@
 package com.elleined.philippine_location_api.province;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/regions/{regionId}/provinces")
@@ -15,33 +12,12 @@ public class ProvinceController {
     private final ProvinceService provinceService;
 
     @GetMapping
-    public List<ProvinceDTO> getAll(@PathVariable("regionId") int regionId) {
-        return provinceService.getAll(regionId);
-    }
+    public Pageable<Province> searchByName(@PathVariable("regionId") int regionId,
+                                           @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                           @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                           @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
-    @GetMapping("/paged")
-    public Page<Province> getAll(@PathVariable("regionId") int regionId,
-                                 @RequestParam(value = "page", defaultValue = "1") int page,
-                                 @RequestParam(value = "size", defaultValue = "10") int size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return provinceService.getAll(regionId, pageRequest);
-    }
-
-    @GetMapping("/search")
-    public List<Province> searchByName(@PathVariable("regionId") int regionId,
-                                       @RequestParam("name") String name) {
-
-        return provinceService.searchByName(regionId, name.toLowerCase(Locale.ROOT));
-    }
-
-    @GetMapping("/search/paged")
-    public Page<Province> searchByName(@PathVariable("regionId") int regionId,
-                                       @RequestParam("name") String name,
-                                       @RequestParam(value = "page", defaultValue = "1") int page,
-                                       @RequestParam(value = "size", defaultValue = "10") int size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return provinceService.searchByName(regionId, name.toLowerCase(Locale.ROOT), pageRequest);
+        PageRequest request = PageRequest.of(page, size);
+        return provinceService.findAllBy(regionId, name, request);
     }
 }

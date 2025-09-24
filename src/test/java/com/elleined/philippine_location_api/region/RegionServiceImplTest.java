@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.region;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -92,7 +92,7 @@ class RegionServiceImplTest {
         when(regionRepository.findAllTotal()).thenReturn(totalElements);
 
         // Calling the method
-        Page<Region> actual = assertDoesNotThrow(() -> regionService.getAll(request));
+        Pageable<Region> actual = assertDoesNotThrow(() -> regionService.getAll(request));
 
         // Behavior Verifications
         verify(regionRepository).findAll(anyInt(), anyInt());
@@ -150,13 +150,13 @@ class RegionServiceImplTest {
         // Set up method
 
         // Stubbing methods
-        when(regionRepository.searchByName(anyString())).thenReturn(expected);
+        when(regionRepository.findAllBy(anyString())).thenReturn(expected);
 
         // Calling the method
         List<Region> actual = assertDoesNotThrow(() -> regionService.searchByName("name"));
 
         // Behavior Verifications
-        verify(regionRepository).searchByName(anyString());
+        verify(regionRepository).findAllBy(anyString());
 
         // Assertions
         assertThat(actual).isEqualTo(expected);
@@ -214,15 +214,15 @@ class RegionServiceImplTest {
         // Set up method
 
         // Stubbing methods
-        when(regionRepository.searchByName(anyString(), anyInt(), anyInt())).thenReturn(expected);
-        when(regionRepository.searchByNameTotal(anyString())).thenReturn(totalElements);
+        when(regionRepository.findAllBy(anyString(), anyInt(), anyInt())).thenReturn(expected);
+        when(regionRepository.findAllByTotal(anyString())).thenReturn(totalElements);
 
         // Calling the method
-        Page<Region> actual = assertDoesNotThrow(() -> regionService.searchByName(request, name));
+        Pageable<Region> actual = assertDoesNotThrow(() -> regionService.findAllBy(name, request));
 
         // Behavior Verifications
-        verify(regionRepository).searchByName(anyString(), anyInt(), anyInt());
-        verify(regionRepository).searchByNameTotal(anyString());
+        verify(regionRepository).findAllBy(anyString(), anyInt(), anyInt());
+        verify(regionRepository).findAllByTotal(anyString());
 
         // Assertions
         assertThat(actual.content()).isEqualTo(expected);

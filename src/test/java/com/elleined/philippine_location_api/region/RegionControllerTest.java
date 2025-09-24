@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.region;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -68,7 +68,7 @@ class RegionControllerTest {
         int size = 10;
 
         // Set up method
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
+        Pageable<Region> regions = new Pageable<>(new ArrayList<>(), new PageRequest(page, size), 10);
 
         // Stubbing methods
         when(regionService.getAll(any(PageRequest.class))).thenReturn(regions);
@@ -102,7 +102,7 @@ class RegionControllerTest {
         int page = 1;
         int size = 10;
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), size);
+        Pageable<Region> regions = new Pageable<>(new ArrayList<>(), new PageRequest(page, size), size);
 
         // Set up method
 
@@ -168,12 +168,12 @@ class RegionControllerTest {
         int size = 10;
 
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
+        Pageable<Region> regions = new Pageable<>(new ArrayList<>(), new PageRequest(page, size), 10);
 
         // Set up method
 
         // Stubbing methods
-        when(regionService.searchByName(any(PageRequest.class), anyString())).thenReturn(regions);
+        when(regionService.findAllBy(anyString(), any(PageRequest.class))).thenReturn(regions);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -192,7 +192,7 @@ class RegionControllerTest {
         });
 
         // Behavior Verifications
-        verify(regionService).searchByName(any(PageRequest.class), anyString());
+        verify(regionService).findAllBy(anyString(), any(PageRequest.class));
 
         // Assertions
     }
@@ -207,12 +207,12 @@ class RegionControllerTest {
         int size = 10;
 
         // Mock data
-        Page<Region> regions = new Page<>(new ArrayList<>(), new PageRequest(page, size), 10);
+        Pageable<Region> regions = new Pageable<>(new ArrayList<>(), new PageRequest(page, size), 10);
 
         // Set up method
 
         // Stubbing methods
-        when(regionService.searchByName(any(PageRequest.class), anyString())).thenReturn(regions);
+        when(regionService.findAllBy(anyString(), any(PageRequest.class))).thenReturn(regions);
 
         // Calling the method
         mockMvc.perform(get("/regions/search/paged")
@@ -227,7 +227,7 @@ class RegionControllerTest {
                 .andExpect(jsonPath("$.totalElements", isA(Number.class)));
 
         // Behavior Verifications
-        verify(regionService).searchByName(any(PageRequest.class), anyString());
+        verify(regionService).findAllBy(anyString(), any(PageRequest.class));
 
         // Assertions
     }

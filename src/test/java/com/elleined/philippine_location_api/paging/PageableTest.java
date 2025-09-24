@@ -10,7 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class PageTest {
+class PageableTest {
 
     @Test
     void page_HappyPath() {
@@ -24,7 +24,7 @@ class PageTest {
         PageRequest request = new PageRequest(page, size);
         List<Object> list = new ArrayList<>();
         int totalElements = list.size();
-        Page<Object> pagination = new Page<>(list, request, totalElements);
+        Pageable<Object> pagination = new Pageable<>(list, request, totalElements);
 
         // Set up method
 
@@ -50,7 +50,7 @@ class PageTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Object> pagination = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Object> pagination = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
@@ -76,7 +76,7 @@ class PageTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Object> objects = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Object> objects = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
@@ -100,7 +100,7 @@ class PageTest {
         int page = 1;
         int size = 10;
         PageRequest request = new PageRequest(page, size);
-        Page<Object> objects = new Page<>(new ArrayList<>(), request, 0);
+        Pageable<Object> objects = new Pageable<>(new ArrayList<>(), request, 0);
 
         // Set up method
 

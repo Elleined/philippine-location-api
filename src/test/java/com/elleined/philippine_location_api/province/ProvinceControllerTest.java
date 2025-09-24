@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.province;
 
-import com.elleined.philippine_location_api.paging.Page;
 import com.elleined.philippine_location_api.paging.PageRequest;
+import com.elleined.philippine_location_api.paging.Pageable;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -72,7 +72,7 @@ class ProvinceControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = PageRequest.of(page, size);
-        Page<Province> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Province> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Stubbing methods
         when(provinceService.getAll(anyInt(), any(PageRequest.class))).thenReturn(expected);
@@ -111,7 +111,7 @@ class ProvinceControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = PageRequest.of(page, size);
-        Page<Province> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Province> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Stubbing methods
         when(provinceService.getAll(anyInt(), any(PageRequest.class))).thenReturn(expected);
@@ -149,7 +149,7 @@ class ProvinceControllerTest {
         // Set up method
 
         // Stubbing methods
-        when(provinceService.searchByName(anyInt(), anyString())).thenReturn(expected);
+        when(provinceService.findAllByTotal(anyInt(), anyString())).thenReturn(expected);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -162,7 +162,7 @@ class ProvinceControllerTest {
         });
 
         // Behavior Verifications
-        verify(provinceService).searchByName(anyInt(), anyString());
+        verify(provinceService).findAllByTotal(anyInt(), anyString());
 
         // Assertions
     }
@@ -179,12 +179,12 @@ class ProvinceControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = PageRequest.of(page, size);
-        Page<Province> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Province> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
         // Stubbing methods
-        when(provinceService.searchByName(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(provinceService.findAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -203,7 +203,7 @@ class ProvinceControllerTest {
         });
 
         // Behavior Verifications
-        verify(provinceService).searchByName(anyInt(), anyString(), any(PageRequest.class));
+        verify(provinceService).findAllBy(anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }
@@ -220,12 +220,12 @@ class ProvinceControllerTest {
         int page = 1;
         int size = 10;
         PageRequest request = PageRequest.of(page, size);
-        Page<Province> expected = new Page<>(new ArrayList<>(), request, 10);
+        Pageable<Province> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
 
         // Stubbing methods
-        when(provinceService.searchByName(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(provinceService.findAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -242,7 +242,7 @@ class ProvinceControllerTest {
         });
 
         // Behavior Verifications
-        verify(provinceService).searchByName(anyInt(), anyString(), any(PageRequest.class));
+        verify(provinceService).findAllBy(anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }

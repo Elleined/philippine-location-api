@@ -1,9 +1,9 @@
 package com.elleined.philippine_location_api.paging;
 
-import java.util.List;
+import java.util.Collection;
 
-public record Page<T>(
-        List<T> content,
+public record Pageable<T>(
+        Collection<T> content,
         PageRequest request,
         int totalElements
 ) {
@@ -17,5 +17,9 @@ public record Page<T>(
 
     public boolean getHasPrevious() {
         return request.page() > 1;
+    }
+
+    public static <T> Pageable<T> of(Collection<T> content, PageRequest request, int totalElements) {
+        return new Pageable<>(content, request, totalElements);
     }
 }
