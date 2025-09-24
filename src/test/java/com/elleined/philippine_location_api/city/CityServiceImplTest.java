@@ -191,7 +191,7 @@ class CityServiceImplTest {
     }
 
     @Test
-    void findAllBy_HappyPath() {
+    void getAllBy_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -237,7 +237,7 @@ class CityServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankNameValues")
-    void findAllByName_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankInput(int regionId, int provinceId, String name) throws NoSuchMethodException {
+    void getAllByName_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlankInput(int regionId, int provinceId, String name) throws NoSuchMethodException {
         // Pre defined values
 
         // Expected Value
@@ -251,7 +251,7 @@ class CityServiceImplTest {
         // Calling the method
         Set<ConstraintViolation<CityService>> violations = executableValidator.validateParameters(
                 cityService,
-                CityService.class.getMethod("findAllBy", int.class, int.class, String.class),
+                CityService.class.getMethod("getAllBy", int.class, int.class, String.class),
                 new Object[]{regionId, provinceId, name}
         );
 
@@ -263,7 +263,7 @@ class CityServiceImplTest {
     }
 
     @Test
-    void findAllByPaged_HappyPath() {
+    void getAllByPaged_HappyPath() {
         // Pre defined values
 
         // Expected Value
@@ -284,7 +284,7 @@ class CityServiceImplTest {
         when(cityRepository.findAllByTotal(anyInt(), anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
-        Pageable<City> actual = assertDoesNotThrow(() -> cityService.findAllBy(regionId, provinceId, name, request));
+        Pageable<City> actual = assertDoesNotThrow(() -> cityService.getAllBy(regionId, provinceId, name, request));
 
         // Behavior Verifications
         verify(cityRepository).findAllBy(anyInt(), anyInt(), anyString(), anyInt(), anyInt());
@@ -317,7 +317,7 @@ class CityServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("negativeRegionId_AndNegativeProvinceId_AndNullAndBlankName_AndNullPageRequestValues")
-    void findAllByNamePaged_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank_AndNullPageRequestInput(int regionId, int provinceId, String name, PageRequest request) throws NoSuchMethodException {
+    void getAllByNamePaged_ShouldThrowConstraintViolationException_ForNegativeRegionId_AndNegativeProvinceId_AndNullAndBlank_AndNullPageRequestInput(int regionId, int provinceId, String name, PageRequest request) throws NoSuchMethodException {
         // Pre defined values
 
         // Expected Value
@@ -331,7 +331,7 @@ class CityServiceImplTest {
         // Calling the method
         Set<ConstraintViolation<CityService>> violations = executableValidator.validateParameters(
                 cityService,
-                CityService.class.getMethod("findAllBy", int.class, int.class, String.class, PageRequest.class),
+                CityService.class.getMethod("getAllBy", int.class, int.class, String.class, PageRequest.class),
                 new Object[]{regionId, provinceId, name, request}
         );
 

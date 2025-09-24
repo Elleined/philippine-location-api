@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS baranggay_get_all_by;
+DROP PROCEDURE IF EXISTS baranggay_find_all_by;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS baranggay_get_all_by(
+CREATE PROCEDURE IF NOT EXISTS baranggay_find_all_by(
     IN region_id INT,
     IN province_id INT,
     IN city_id INT,
@@ -49,7 +49,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS baranggay_find_all_by_total;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS baranggay_get_all_by(
+CREATE PROCEDURE IF NOT EXISTS baranggay_find_all_by_total(
     IN region_id INT,
     IN province_id INT,
     IN city_id INT,

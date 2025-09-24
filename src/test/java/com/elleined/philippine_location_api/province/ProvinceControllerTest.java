@@ -184,7 +184,7 @@ class ProvinceControllerTest {
         // Set up method
 
         // Stubbing methods
-        when(provinceService.findAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(provinceService.getAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -203,7 +203,7 @@ class ProvinceControllerTest {
         });
 
         // Behavior Verifications
-        verify(provinceService).findAllBy(anyInt(), anyString(), any(PageRequest.class));
+        verify(provinceService).getAllBy(anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }
@@ -225,7 +225,7 @@ class ProvinceControllerTest {
         // Set up method
 
         // Stubbing methods
-        when(provinceService.findAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(provinceService.getAllBy(anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -242,7 +242,7 @@ class ProvinceControllerTest {
         });
 
         // Behavior Verifications
-        verify(provinceService).findAllBy(anyInt(), anyString(), any(PageRequest.class));
+        verify(provinceService).getAllBy(anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }

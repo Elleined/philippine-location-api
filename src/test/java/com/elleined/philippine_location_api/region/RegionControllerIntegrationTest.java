@@ -1,6 +1,5 @@
 package com.elleined.philippine_location_api.region;
 
-import com.redis.testcontainers.RedisContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,10 +25,7 @@ class RegionControllerIntegrationTest {
     @ServiceConnection
     private static final MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.4.6")
             .withReuse(true);
-    @Container
-    @ServiceConnection
-    private static final RedisContainer redisContainer = new RedisContainer("redis:8.0.2-alpine")
-            .withReuse(true);
+
     @Autowired
     private MockMvc mockMvc;
 

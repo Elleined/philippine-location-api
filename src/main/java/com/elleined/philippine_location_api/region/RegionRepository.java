@@ -14,6 +14,6 @@ public interface RegionRepository extends CrudRepository<Region, Integer> {
                            @Param("page") int page,
                            @Param("size") int size);
 
-    @Query("CALL region_find_all_by(:name)")
+    @Query("CALL region_find_all_by_total(:name)")
     int findAllByTotal(@Param("name") String name);
 }

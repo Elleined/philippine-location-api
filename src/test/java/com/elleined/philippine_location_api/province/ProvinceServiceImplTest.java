@@ -260,7 +260,7 @@ class ProvinceServiceImplTest {
         when(provinceRepository.findAllByTotal(anyInt(), anyString())).thenReturn(expected.size());
 
         // Calling the method
-        Pageable<Province> actual = assertDoesNotThrow(() -> provinceService.findAllBy(regionId, name, request));
+        Pageable<Province> actual = assertDoesNotThrow(() -> provinceService.getAllBy(regionId, name, request));
 
         // Behavior Verifications
         verify(provinceRepository).findAllBy(anyInt(), anyString(), anyInt(), anyInt());

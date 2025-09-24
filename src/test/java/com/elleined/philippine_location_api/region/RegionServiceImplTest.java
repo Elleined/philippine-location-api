@@ -218,7 +218,7 @@ class RegionServiceImplTest {
         when(regionRepository.findAllByTotal(anyString())).thenReturn(totalElements);
 
         // Calling the method
-        Pageable<Region> actual = assertDoesNotThrow(() -> regionService.findAllBy(name, request));
+        Pageable<Region> actual = assertDoesNotThrow(() -> regionService.getAllBy(request, name));
 
         // Behavior Verifications
         verify(regionRepository).findAllBy(anyString(), anyInt(), anyInt());

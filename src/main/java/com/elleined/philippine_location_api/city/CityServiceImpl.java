@@ -19,10 +19,10 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
     @Override
-    public Pageable<City> findAllBy(int regionId,
-                                    int provinceId,
-                                    String name,
-                                    PageRequest request) {
+    public Pageable<City> getAllBy(int regionId,
+                                   int provinceId,
+                                   String name,
+                                   PageRequest request) {
 
         int totalElements = cityRepository.findAllByTotal(regionId, provinceId, name);
         List<City> cities = cityRepository.findAllBy(regionId, provinceId, name, request.page(), request.size());

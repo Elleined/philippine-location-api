@@ -151,7 +151,7 @@ class CityControllerTest {
         List<City> expected = new ArrayList<>();
 
         // Set up method
-        when(cityService.findAllBy(anyInt(), anyInt(), anyString())).thenReturn(expected);
+        when(cityService.getAllBy(anyInt(), anyInt(), anyString())).thenReturn(expected);
 
         // Stubbing methods
         assertDoesNotThrow(() -> {
@@ -164,7 +164,7 @@ class CityControllerTest {
         });
 
         // Calling the method
-        verify(cityService).findAllBy(anyInt(), anyInt(), anyString());
+        verify(cityService).getAllBy(anyInt(), anyInt(), anyString());
 
         // Behavior Verifications
 
@@ -187,7 +187,7 @@ class CityControllerTest {
         Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
-        when(cityService.findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(cityService.getAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Stubbing methods
 
@@ -208,7 +208,7 @@ class CityControllerTest {
         });
 
         // Behavior Verifications
-        verify(cityService).findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
+        verify(cityService).getAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }
@@ -227,7 +227,7 @@ class CityControllerTest {
         Pageable<City> expected = new Pageable<>(new ArrayList<>(), request, 10);
 
         // Set up method
-        when(cityService.findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
+        when(cityService.getAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class))).thenReturn(expected);
 
         // Stubbing methods
 
@@ -246,7 +246,7 @@ class CityControllerTest {
         });
 
         // Behavior Verifications
-        verify(cityService).findAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
+        verify(cityService).getAllBy(anyInt(), anyInt(), anyString(), any(PageRequest.class));
 
         // Assertions
     }

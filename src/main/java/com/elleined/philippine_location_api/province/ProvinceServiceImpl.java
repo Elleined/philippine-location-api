@@ -19,9 +19,9 @@ public class ProvinceServiceImpl implements ProvinceService {
     private final ProvinceRepository provinceRepository;
 
     @Override
-    public Pageable<Province> findAllBy(int regionId,
-                                        String name,
-                                        PageRequest request) {
+    public Pageable<Province> getAllBy(int regionId,
+                                       String name,
+                                       PageRequest request) {
 
         int totalElements = provinceRepository.findAllByTotal(regionId, name);
         List<Province> provinces = provinceRepository.findAllBy(regionId, name, request.page(), request.size());

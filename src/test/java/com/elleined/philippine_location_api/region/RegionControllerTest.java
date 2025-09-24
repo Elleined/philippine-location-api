@@ -173,7 +173,7 @@ class RegionControllerTest {
         // Set up method
 
         // Stubbing methods
-        when(regionService.findAllBy(anyString(), any(PageRequest.class))).thenReturn(regions);
+        when(regionService.getAllBy(any(PageRequest.class), anyString())).thenReturn(regions);
 
         // Calling the method
         assertDoesNotThrow(() -> {
@@ -192,7 +192,7 @@ class RegionControllerTest {
         });
 
         // Behavior Verifications
-        verify(regionService).findAllBy(anyString(), any(PageRequest.class));
+        verify(regionService).getAllBy(any(PageRequest.class), anyString());
 
         // Assertions
     }
@@ -212,7 +212,7 @@ class RegionControllerTest {
         // Set up method
 
         // Stubbing methods
-        when(regionService.findAllBy(anyString(), any(PageRequest.class))).thenReturn(regions);
+        when(regionService.getAllBy(any(PageRequest.class), anyString())).thenReturn(regions);
 
         // Calling the method
         mockMvc.perform(get("/regions/search/paged")
@@ -227,7 +227,7 @@ class RegionControllerTest {
                 .andExpect(jsonPath("$.totalElements", isA(Number.class)));
 
         // Behavior Verifications
-        verify(regionService).findAllBy(anyString(), any(PageRequest.class));
+        verify(regionService).getAllBy(any(PageRequest.class), anyString());
 
         // Assertions
     }
