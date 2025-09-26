@@ -1,8 +1,8 @@
 DROP PROCEDURE IF EXISTS city_find_all_by;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS city_find_all_by(
-    IN region_id INT,
-    IN province_id INT,
+    IN region_id BIGINT,
+    IN province_id BIGINT,
     IN name VARCHAR(50),
     IN page INT,
     IN size INT
@@ -43,8 +43,8 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS city_find_all_by_total;
 DELIMITER //
 CREATE PROCEDURE city_find_all_by_total(
-    IN region_id INT,
-    IN province_id INT,
+    IN region_id BIGINT,
+    IN province_id BIGINT,
     IN name VARCHAR(50)
 )
 BEGIN
