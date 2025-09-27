@@ -19,8 +19,8 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
     @Override
-    public Pageable<City> getAllBy(int regionId,
-                                   int provinceId,
+    public Pageable<City> getAllBy(Long regionId,
+                                   Long provinceId,
                                    String name,
                                    PageRequest request) {
 

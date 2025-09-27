@@ -19,7 +19,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     private final ProvinceRepository provinceRepository;
 
     @Override
-    public Pageable<Province> getAllBy(int regionId,
+    public Pageable<Province> getAllBy(Long regionId,
                                        String name,
                                        PageRequest request) {
 

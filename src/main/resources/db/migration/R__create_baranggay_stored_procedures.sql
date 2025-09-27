@@ -1,10 +1,10 @@
 DROP PROCEDURE IF EXISTS baranggay_find_all_by;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS baranggay_find_all_by(
-    IN region_id INT,
-    IN province_id INT,
-    IN city_id INT,
-    IN name VARCHAR(255),
+    IN region_id BIGINT,
+    IN province_id BIGINT,
+    IN city_id BIGINT,
+    IN name VARCHAR(50),
     IN page INT,
     IN size INT
 )
@@ -50,10 +50,10 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS baranggay_find_all_by_total;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS baranggay_find_all_by_total(
-    IN region_id INT,
-    IN province_id INT,
-    IN city_id INT,
-    IN name VARCHAR(255)
+    IN region_id BIGINT,
+    IN province_id BIGINT,
+    IN city_id BIGINT,
+    IN name VARCHAR(50)
 )
 BEGIN
     IF region_id IS NULL OR region_id <= 0 THEN

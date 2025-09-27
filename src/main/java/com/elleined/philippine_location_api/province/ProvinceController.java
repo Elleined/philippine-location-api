@@ -12,7 +12,7 @@ public class ProvinceController {
     private final ProvinceService provinceService;
 
     @GetMapping
-    public Pageable<Province> getAllBy(@PathVariable("regionId") int regionId,
+    public Pageable<Province> getAllBy(@PathVariable("regionId") Long regionId,
                                        @RequestParam(value = "name", defaultValue = "", required = false) String name,
                                        @RequestParam(value = "page", defaultValue = "1", required = false) int page,
                                        @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

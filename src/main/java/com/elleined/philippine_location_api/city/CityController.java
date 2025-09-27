@@ -12,8 +12,8 @@ public class CityController {
     private final CityService cityService;
 
     @GetMapping
-    public Pageable<City> getAllBy(@PathVariable("regionId") int regionId,
-                                   @PathVariable("provinceId") int provinceId,
+    public Pageable<City> getAllBy(@PathVariable("regionId") Long regionId,
+                                   @PathVariable("provinceId") Long provinceId,
                                    @RequestParam(value = "name", defaultValue = "", required = false) String name,
                                    @RequestParam(value = "page", defaultValue = "1", required = false) int page,
                                    @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

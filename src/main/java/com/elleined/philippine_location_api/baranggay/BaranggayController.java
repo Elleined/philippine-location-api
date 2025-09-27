@@ -12,9 +12,9 @@ public class BaranggayController {
     private final BaranggayService baranggayService;
 
     @GetMapping
-    public Pageable<Baranggay> getAllBy(@PathVariable("regionId") int regionId,
-                                        @PathVariable("provinceId") int provinceId,
-                                        @PathVariable("cityId") int cityId,
+    public Pageable<Baranggay> getAllBy(@PathVariable("regionId") Long regionId,
+                                        @PathVariable("provinceId") Long provinceId,
+                                        @PathVariable("cityId") Long cityId,
                                         @RequestParam(value = "name", defaultValue = "", required = false) String name,
                                         @RequestParam(value = "page", defaultValue = "1", required = false) int page,
                                         @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

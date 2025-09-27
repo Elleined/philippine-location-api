@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface CityService {
-    Pageable<City> getAllBy(@Positive int regionId,
-                            @Positive int provinceId,
+    Pageable<City> getAllBy(@NotNull Long regionId,
+                            @NotNull Long provinceId,
                             String name,
                             @NotNull PageRequest request);
 }

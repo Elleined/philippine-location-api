@@ -19,9 +19,9 @@ public class BaranggayServiceImpl implements BaranggayService {
     private final BaranggayRepository baranggayRepository;
 
     @Override
-    public Pageable<Baranggay> getAllBy(int regionId,
-                                        int provinceId,
-                                        int cityId,
+    public Pageable<Baranggay> getAllBy(Long regionId,
+                                        Long provinceId,
+                                        Long cityId,
                                         String name,
                                         PageRequest request) {
 
