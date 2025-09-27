@@ -32,7 +32,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'size cannot be a negative number or null';
     END IF;
 
-    SELECT b.*
+    SELECT
+        b.id AS id,
+        b.name AS name,
+        b.city_id AS city_id
     FROM baranggay b
     JOIN city c ON c.id = b.city_id
     JOIN province p ON p.id = c.province_id
@@ -69,7 +72,7 @@ BEGIN
     END IF;
 
     SELECT COUNT(*)
-    FROM baranggay b
+    FROM baranggay b AS total_elements
     JOIN city c ON c.id = b.city_id
     JOIN province p ON p.id = c.province_id
     JOIN region r ON r.id = p.region_id

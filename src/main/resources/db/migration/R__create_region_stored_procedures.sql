@@ -17,7 +17,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'page size cannot be a negative number or null';
     END IF;
 
-    SELECT *
+    SELECT
+        r.id AS id,
+        r.name AS name,
+        r.description AS description
     FROM region r
     WHERE r.name LIKE CONCAT('%', IFNULL(name, ""), '%')
     ORDER BY r.name ASC
@@ -28,12 +31,9 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS region_find_all_by_total;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS region_find_all_by_total(
-    IN name VARCHAR(50)
-)
+CREATE PROCEDURE IF NOT EXISTS region_find_all_by_total(IN name VARCHAR(50))
 BEGIN
-
-    SELECT COUNT(*)
+    SELECT COUNT(*) AS total_elements
     FROM region r
     WHERE r.name LIKE CONCAT('%', IFNULL(name, ""), '%');
 END //

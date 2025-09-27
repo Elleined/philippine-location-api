@@ -22,7 +22,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'page size cannot be a negative number or null';
     END IF;
 
-    SELECT *
+    SELECT
+        p.id AS id,
+        p.name AS name,
+        p.region_id AS region_id
     FROM province p
     WHERE p.region_id = region_id
     AND p.name LIKE CONCAT('%', IFNULL(name, ""), '%')
@@ -43,7 +46,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'region id cannot be a negative number or null';
     END IF;
 
-    SELECT COUNT(*)
+    SELECT COUNT(*) AS total_elements
     FROM province p
     WHERE p.region_id = region_id
     AND p.name LIKE CONCAT('%', IFNULL(name, ""), '%');

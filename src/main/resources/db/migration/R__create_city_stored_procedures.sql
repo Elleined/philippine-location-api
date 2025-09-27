@@ -27,7 +27,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'page size cannot be a negative number or null';
     END IF;
 
-    SELECT c.*
+    SELECT
+        c.id AS id,
+        c.name AS name,
+        c.province_id AS province_id
     FROM city c
     JOIN province p ON p.id = c.province_id
     JOIN region r ON r.id = p.region_id
@@ -56,7 +59,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'province id cannot be a negative number or null';
     END IF;
 
-    SELECT COUNT(*)
+    SELECT COUNT(*) AS total_elements
     FROM city c
     JOIN province p ON p.id = c.province_id
     JOIN region r ON r.id = p.region_id
