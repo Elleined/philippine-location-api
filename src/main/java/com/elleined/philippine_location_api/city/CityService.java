@@ -3,7 +3,6 @@ package com.elleined.philippine_location_api.city;
 import com.elleined.philippine_location_api.paging.PageRequest;
 import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public interface CityService {
     Pageable<City> getAllBy(@NotNull Long regionId,

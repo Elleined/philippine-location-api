@@ -5,6 +5,7 @@ CREATE PROCEDURE IF NOT EXISTS region_find_all_by(
     IN page INT,
     IN size INT
 )
+COMMENT 'Get all regions with search, page, and size'
 BEGIN
 	DECLARE offset INT;
 	SET offset = (page - 1) * size;
@@ -29,12 +30,19 @@ BEGIN
 END //
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS region_find_all_by_total;
+DROP FUNCTION IF EXISTS region_find_all_by_total;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS region_find_all_by_total(IN name VARCHAR(50))
+CREATE FUNCTION IF NOT EXISTS region_find_all_by_total(name VARCHAR(50))
+RETURNS INT DETERMINISTIC
+COMMENT 'Get the total elements of region_find_all_by'
 BEGIN
-    SELECT COUNT(*) AS total_elements
+    DECLARE total_elements INT;
+
+    SELECT COUNT(*)
+    INTO total_elements
     FROM region r
     WHERE r.name LIKE CONCAT('%', IFNULL(name, ""), '%');
+
+    RETURN total_elements;
 END //
 DELIMITER ;

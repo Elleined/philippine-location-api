@@ -2,21 +2,21 @@ package com.elleined.philippine_location_api.city;
 
 import com.elleined.philippine_location_api.paging.PageRequest;
 import com.elleined.philippine_location_api.paging.Pageable;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @Validated
 @Transactional
-@RequiredArgsConstructor
 public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
+
+    public CityServiceImpl(CityRepository cityRepository) {
+        this.cityRepository = cityRepository;
+    }
 
     @Override
     public Pageable<City> getAllBy(Long regionId,

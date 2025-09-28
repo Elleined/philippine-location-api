@@ -9,5 +9,5 @@ public interface RegionRepository {
                            int page,
                            int size);
 
-    int findAllByTotal(String name);
+    Integer findAllByTotal(String name);
 }

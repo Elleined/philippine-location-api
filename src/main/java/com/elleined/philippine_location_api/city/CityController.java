@@ -2,14 +2,16 @@ package com.elleined.philippine_location_api.city;
 
 import com.elleined.philippine_location_api.paging.PageRequest;
 import com.elleined.philippine_location_api.paging.Pageable;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/regions/{regionId}/provinces/{provinceId}/cities")
 public class CityController {
     private final CityService cityService;
+
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
+    }
 
     @GetMapping
     public Pageable<City> getAllBy(@PathVariable("regionId") Long regionId,

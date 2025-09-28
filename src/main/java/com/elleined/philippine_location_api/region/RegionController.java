@@ -2,7 +2,6 @@ package com.elleined.philippine_location_api.region;
 
 import com.elleined.philippine_location_api.paging.PageRequest;
 import com.elleined.philippine_location_api.paging.Pageable;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +11,12 @@ import java.util.Locale;
 
 @RestController
 @RequestMapping("/regions")
-@RequiredArgsConstructor
 public class RegionController {
     private final RegionService regionService;
+
+    public RegionController(RegionService regionService) {
+        this.regionService = regionService;
+    }
 
     @GetMapping
     public Pageable<Region> getAllBy(@RequestParam(value = "name", defaultValue = "", required = false) String name,

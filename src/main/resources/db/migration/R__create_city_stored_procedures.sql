@@ -32,11 +32,9 @@ BEGIN
         c.name AS name,
         c.province_id AS province_id
     FROM city c
-    JOIN province p ON p.id = c.province_id
-    JOIN region r ON r.id = p.region_id
-    WHERE r.id = region_id
-    AND p.id = province_id
-    AND c.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    JOIN province p ON p.id = c.province_id AND p.id = province_id
+    JOIN region r ON r.id = p.region_id AND r.id = region_id
+    WHERE c.name LIKE CONCAT('%', IFNULL(name, ""), '%')
     ORDER BY c.name ASC
     LIMIT size
     OFFSET offset;
@@ -61,10 +59,8 @@ BEGIN
 
     SELECT COUNT(*) AS total_elements
     FROM city c
-    JOIN province p ON p.id = c.province_id
-    JOIN region r ON r.id = p.region_id
-    WHERE r.id = region_id
-    AND p.id = province_id
-    AND c.name LIKE CONCAT('%', IFNULL(name, ""), '%');
+    JOIN province p ON p.id = c.province_id AND p.id = province_id
+    JOIN region r ON r.id = p.region_id AND r.id = region_id
+    WHERE c.name LIKE CONCAT('%', IFNULL(name, ""), '%');
 END //
 DELIMITER ;

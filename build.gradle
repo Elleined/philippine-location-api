@@ -16,9 +16,6 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	configureEach {
-		exclude group: 'commons-logging', module: 'commons-logging'
-	}
 }
 
 repositories {
@@ -41,10 +38,6 @@ dependencies {
 	errorprone "com.uber.nullaway:nullaway:0.12.9"
 	implementation "org.jspecify:jspecify:1.0.0"
 	errorprone "com.google.errorprone:error_prone_core:2.41.0"
-
-	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
 
 	// Testcontainers
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'

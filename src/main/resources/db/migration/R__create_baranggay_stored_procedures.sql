@@ -37,13 +37,10 @@ BEGIN
         b.name AS name,
         b.city_id AS city_id
     FROM baranggay b
-    JOIN city c ON c.id = b.city_id
-    JOIN province p ON p.id = c.province_id
-    JOIN region r ON r.id = p.region_id
-    WHERE r.id = region_id
-    AND p.id = province_id
-    AND c.id = city_id
-    AND b.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    JOIN city c ON c.id = b.city_id AND c.id = city_id
+    JOIN province p ON p.id = c.province_id AND p.id = province_id
+    JOIN region r ON r.id = p.region_id AND r.id = region_id
+    WHERE b.name LIKE CONCAT('%', IFNULL(name, ""), '%')
     ORDER BY b.name ASC
     LIMIT size
     OFFSET offset;
@@ -71,14 +68,11 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'city id cannot be a negative number or null';
     END IF;
 
-    SELECT COUNT(*)
-    FROM baranggay b AS total_elements
-    JOIN city c ON c.id = b.city_id
-    JOIN province p ON p.id = c.province_id
-    JOIN region r ON r.id = p.region_id
-    WHERE r.id = region_id
-    AND p.id = province_id
-    AND c.id = city_id
-    AND b.name LIKE CONCAT('%', IFNULL(name, ""), '%');
+    SELECT COUNT(*) AS total_elements
+    FROM baranggay b
+    JOIN city c ON c.id = b.city_id AND c.id = city_id
+    JOIN province p ON p.id = c.province_id AND p.id = province_id
+    JOIN region r ON r.id = p.region_id AND r.id = region_id
+    WHERE b.name LIKE CONCAT('%', IFNULL(name, ""), '%');
 END //
 DELIMITER ;
