@@ -6,6 +6,7 @@ CREATE PROCEDURE IF NOT EXISTS province_find_all_by(
     IN page INT,
     IN size INT
 )
+COMMENT 'Get all provinces with search, page, and size'
 BEGIN
 	DECLARE offset INT;
 	SET offset = (page - 1) * size;
@@ -26,29 +27,11 @@ BEGIN
         p.id AS id,
         p.name AS name,
         p.region_id AS region_id
-    FROM province p
-    WHERE p.region_id = region_id
-    AND p.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    FROM region r
+    JOIN province p ON r.id = p.region_id AND p.region_id = region_id
+    WHERE p.name LIKE CONCAT('%', IFNULL(name, ""), '%')
     ORDER BY p.name ASC
     LIMIT size
     OFFSET offset;
-END //
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS province_find_all_by_total;
-DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS province_find_all_by_total(
-    IN region_id BIGINT,
-    IN name VARCHAR(50)
-)
-BEGIN
-    IF region_id IS NULL OR region_id <= 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'region id cannot be a negative number or null';
-    END IF;
-
-    SELECT COUNT(*) AS total_elements
-    FROM province p
-    WHERE p.region_id = region_id
-    AND p.name LIKE CONCAT('%', IFNULL(name, ""), '%');
 END //
 DELIMITER ;
