@@ -9,6 +9,6 @@ public interface ProvinceRepository {
                              int page,
                              int size);
 
-    int findAllByTotal(Long regionId,
+    Integer findAllByTotal(Long regionId,
                        String name);
 }

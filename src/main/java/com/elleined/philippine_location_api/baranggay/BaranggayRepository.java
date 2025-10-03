@@ -11,7 +11,7 @@ public interface BaranggayRepository {
                               int page,
                               int size);
 
-    int findAllByTotal(Long regionId,
+    Integer findAllByTotal(Long regionId,
                        Long provinceId,
                        Long cityId,
                        String name);

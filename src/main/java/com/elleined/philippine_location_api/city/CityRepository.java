@@ -10,7 +10,7 @@ public interface CityRepository {
                          int page,
                          int size);
 
-    int findAllByTotal(Long regionId,
+    Integer findAllByTotal(Long regionId,
                        Long provinceId,
                        String name);
 }
