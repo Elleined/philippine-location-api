@@ -35,9 +35,9 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 
 	// NullAway
-	errorprone "com.uber.nullaway:nullaway:0.12.9"
+	errorprone "com.uber.nullaway:nullaway:0.12.10"
 	implementation "org.jspecify:jspecify:1.0.0"
-	errorprone "com.google.errorprone:error_prone_core:2.41.0"
+	errorprone "com.google.errorprone:error_prone_core:2.42.0"
 
 	// Testcontainers
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
