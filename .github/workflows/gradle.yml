@@ -1,4 +1,4 @@
-name: SonarQube
+name: PLA Workflow
 on:
   push:
     branches:
