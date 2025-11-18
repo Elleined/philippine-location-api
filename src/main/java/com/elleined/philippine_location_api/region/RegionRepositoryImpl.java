@@ -35,9 +35,9 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public List<Region> findAllBy(String name,
-                                  int page,
-                                  int size) {
+    public List<Region> findAll(String name,
+                                int page,
+                                int size) {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", name, Types.VARCHAR)
@@ -53,7 +53,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public Integer findAllByTotal(String name) {
+    public Integer findAllTotal(String name) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", name, Types.VARCHAR);
 

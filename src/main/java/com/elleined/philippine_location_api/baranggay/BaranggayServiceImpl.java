@@ -19,14 +19,14 @@ public class BaranggayServiceImpl implements BaranggayService {
     }
 
     @Override
-    public Pageable<Baranggay> getAllBy(Long regionId,
-                                        Long provinceId,
-                                        Long cityId,
-                                        String name,
-                                        PageRequest request) {
+    public Pageable<Baranggay> getAll(Long regionId,
+                                      Long provinceId,
+                                      Long cityId,
+                                      String name,
+                                      PageRequest request) {
 
-        int totalElements = baranggayRepository.findAllByTotal(regionId, provinceId, cityId, name);
-        List<Baranggay> baranggays = baranggayRepository.findAllBy(regionId, provinceId, cityId, name, request.page(), request.size());
+        int totalElements = baranggayRepository.findAllTotal(regionId, provinceId, cityId, name);
+        List<Baranggay> baranggays = baranggayRepository.findAll(regionId, provinceId, cityId, name, request.page(), request.size());
         return Pageable.of(baranggays, request, totalElements);
     }
 }

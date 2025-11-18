@@ -14,13 +14,13 @@ public class CityController {
     }
 
     @GetMapping
-    public Pageable<City> getAllBy(@PathVariable("regionId") Long regionId,
-                                   @PathVariable("provinceId") Long provinceId,
-                                   @RequestParam(value = "name", defaultValue = "", required = false) String name,
-                                   @RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+    public Pageable<City> getAll(@PathVariable("regionId") Long regionId,
+                                 @PathVariable("provinceId") Long provinceId,
+                                 @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                 @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                 @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         PageRequest request = PageRequest.of(page, size);
-        return cityService.getAllBy(regionId, provinceId, name, request);
+        return cityService.getAll(regionId, provinceId, name, request);
     }
 }

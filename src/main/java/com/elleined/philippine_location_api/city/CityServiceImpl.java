@@ -19,13 +19,13 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public Pageable<City> getAllBy(Long regionId,
-                                   Long provinceId,
-                                   String name,
-                                   PageRequest request) {
+    public Pageable<City> getAll(Long regionId,
+                                 Long provinceId,
+                                 String name,
+                                 PageRequest request) {
 
-        int totalElements = cityRepository.findAllByTotal(regionId, provinceId, name);
-        List<City> cities = cityRepository.findAllBy(regionId, provinceId, name, request.page(), request.size());
+        int totalElements = cityRepository.findAllTotal(regionId, provinceId, name);
+        List<City> cities = cityRepository.findAll(regionId, provinceId, name, request.page(), request.size());
 
         return new Pageable<>(cities, request, totalElements);
     }

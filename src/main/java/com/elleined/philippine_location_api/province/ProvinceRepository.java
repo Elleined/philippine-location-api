@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface ProvinceRepository {
 
-    List<Province> findAllBy(Long regionId,
-                             String name,
-                             int page,
-                             int size);
+    List<Province> findAll(Long regionId,
+                           String name,
+                           int page,
+                           int size);
 
-    Integer findAllByTotal(Long regionId,
-                       String name);
+    Integer findAllTotal(Long regionId,
+                         String name);
 }

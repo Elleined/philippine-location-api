@@ -20,6 +20,6 @@ public class ProvinceController {
                                        @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         PageRequest request = PageRequest.of(page, size);
-        return provinceService.getAllBy(regionId, name, request);
+        return provinceService.getAll(regionId, name, request);
     }
 }

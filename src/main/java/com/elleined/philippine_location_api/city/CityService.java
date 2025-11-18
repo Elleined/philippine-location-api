@@ -5,8 +5,8 @@ import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.constraints.NotNull;
 
 public interface CityService {
-    Pageable<City> getAllBy(@NotNull Long regionId,
-                            @NotNull Long provinceId,
-                            String name,
-                            @NotNull PageRequest request);
+    Pageable<City> getAll(@NotNull Long regionId,
+                          @NotNull Long provinceId,
+                          String name,
+                          @NotNull PageRequest request);
 }

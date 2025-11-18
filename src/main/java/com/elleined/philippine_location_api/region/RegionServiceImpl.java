@@ -19,9 +19,9 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public Pageable<Region> getAllBy(PageRequest request, String name) {
-        int totalElements = regionRepository.findAllByTotal(name);
-        List<Region> regions = regionRepository.findAllBy(name, request.page(), request.size());
+    public Pageable<Region> getAll(PageRequest request, String name) {
+        int totalElements = regionRepository.findAllTotal(name);
+        List<Region> regions = regionRepository.findAll(name, request.page(), request.size());
         return new Pageable<>(regions, request, totalElements);
     }
 }

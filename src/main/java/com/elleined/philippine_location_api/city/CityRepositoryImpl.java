@@ -26,7 +26,10 @@ public class CityRepositoryImpl implements CityRepository {
     private static final Logger log = LoggerFactory.getLogger(CityRepositoryImpl.class);
 
     public CityRepositoryImpl(@Autowired JdbcTemplate jdbcTemplate) {
-        final RowMapper<City> rowMapper = (resultSet, rowNumber) -> new City(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getLong(Province.FK_ID));
+        final RowMapper<City> rowMapper = (resultSet, rowNumber) -> new City(resultSet.getLong("id"),
+                resultSet.getString("name"),
+                resultSet.getLong(Region.FK_ID),
+                resultSet.getLong(Province.FK_ID));
 
         this.findAllBy = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("city_find_all_by")
@@ -37,7 +40,7 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public List<City> findAllBy(Long regionId, Long provinceId, String name, int page, int size) {
+    public List<City> findAll(Long regionId, Long provinceId, String name, int page, int size) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(Region.FK_ID, regionId, Types.BIGINT)
                 .addValue(Province.FK_ID, provinceId, Types.BIGINT)
@@ -54,7 +57,7 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public Integer findAllByTotal(Long regionId, Long provinceId, String name) {
+    public Integer findAllTotal(Long regionId, Long provinceId, String name) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(Region.FK_ID, regionId, Types.BIGINT)
                 .addValue(Province.FK_ID, provinceId, Types.BIGINT)

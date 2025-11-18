@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface BaranggayRepository {
 
-    List<Baranggay> findAllBy(Long regionId,
-                              Long provinceId,
-                              Long cityId,
-                              String name,
-                              int page,
-                              int size);
+    List<Baranggay> findAll(Long regionId,
+                            Long provinceId,
+                            Long cityId,
+                            String name,
+                            int page,
+                            int size);
 
-    Integer findAllByTotal(Long regionId,
-                       Long provinceId,
-                       Long cityId,
-                       String name);
+    Integer findAllTotal(Long regionId,
+                         Long provinceId,
+                         Long cityId,
+                         String name);
 }

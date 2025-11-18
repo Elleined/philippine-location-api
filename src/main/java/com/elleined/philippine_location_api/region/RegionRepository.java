@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface RegionRepository {
 
-    List<Region> findAllBy(String name,
-                           int page,
-                           int size);
+    List<Region> findAll(String name,
+                         int page,
+                         int size);
 
-    Integer findAllByTotal(String name);
+    Integer findAllTotal(String name);
 }

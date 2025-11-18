@@ -36,7 +36,7 @@ public class ProvinceRepositoryImpl implements ProvinceRepository {
     }
 
     @Override
-    public List<Province> findAllBy(Long regionId, String name, int page, int size) {
+    public List<Province> findAll(Long regionId, String name, int page, int size) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(Region.FK_ID, regionId, Types.BIGINT)
                 .addValue("name", name, Types.VARCHAR)
@@ -52,7 +52,7 @@ public class ProvinceRepositoryImpl implements ProvinceRepository {
     }
 
     @Override
-    public Integer findAllByTotal(Long regionId, String name) {
+    public Integer findAllTotal(Long regionId, String name) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue(Region.FK_ID, regionId, Types.BIGINT)
                 .addValue("name", name, Types.VARCHAR);

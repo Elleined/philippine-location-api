@@ -19,11 +19,11 @@ public class RegionController {
     }
 
     @GetMapping
-    public Pageable<Region> getAllBy(@RequestParam(value = "name", defaultValue = "", required = false) String name,
-                                      @RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                      @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+    public Pageable<Region> getAll(@RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                   @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                   @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return regionService.getAllBy(pageRequest, name.toLowerCase(Locale.ROOT));
+        return regionService.getAll(pageRequest, name.toLowerCase(Locale.ROOT));
     }
 }

@@ -14,14 +14,14 @@ public class BaranggayController {
     }
 
     @GetMapping
-    public Pageable<Baranggay> getAllBy(@PathVariable("regionId") Long regionId,
-                                        @PathVariable("provinceId") Long provinceId,
-                                        @PathVariable("cityId") Long cityId,
-                                        @RequestParam(value = "name", defaultValue = "", required = false) String name,
-                                        @RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                        @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+    public Pageable<Baranggay> getAll(@PathVariable("regionId") Long regionId,
+                                      @PathVariable("provinceId") Long provinceId,
+                                      @PathVariable("cityId") Long cityId,
+                                      @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                      @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                      @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         PageRequest request = PageRequest.of(page, size);
-        return baranggayService.getAllBy(regionId, provinceId, cityId, name, request);
+        return baranggayService.getAll(regionId, provinceId, cityId, name, request);
     }
 }

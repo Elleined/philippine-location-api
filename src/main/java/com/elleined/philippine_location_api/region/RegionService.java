@@ -5,6 +5,6 @@ import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.constraints.NotNull;
 
 public interface RegionService {
-    Pageable<Region> getAllBy(@NotNull PageRequest request,
-                              String name);
+    Pageable<Region> getAll(@NotNull PageRequest request,
+                            String name);
 }
