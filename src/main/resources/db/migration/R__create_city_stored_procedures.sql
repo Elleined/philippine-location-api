@@ -31,6 +31,7 @@ BEGIN
     SELECT
         c.id AS id,
         c.name AS name,
+        r.id AS region_id,
         c.province_id AS province_id
     FROM city c
     JOIN province p ON p.id = c.province_id AND p.id = province_id

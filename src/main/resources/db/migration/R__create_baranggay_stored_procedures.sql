@@ -36,6 +36,8 @@ BEGIN
     SELECT
         b.id AS id,
         b.name AS name,
+        r.id AS region_id,
+        p.id AS province_id,
         b.city_id AS city_id
     FROM baranggay b
     JOIN city c ON c.id = b.city_id AND c.id = city_id

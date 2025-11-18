@@ -1,4 +1,4 @@
-name: PLA Workflow
+name: Philippine Location API Workflow
 on:
   push:
     branches:
