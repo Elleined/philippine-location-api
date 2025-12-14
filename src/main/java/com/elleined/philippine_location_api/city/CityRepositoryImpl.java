@@ -19,7 +19,7 @@ import java.util.Objects;
 @Repository
 @Transactional
 public class CityRepositoryImpl implements CityRepository {
-    private static final String FIND_ALL_BY_KEY = "findAllByKey";
+    private static final String FIND_ALL_BY_KEY_KEY = "findAllByKey";
     private final SimpleJdbcCall findAllBy;
     private final SimpleJdbcCall findAllByTotal;
 
@@ -33,7 +33,7 @@ public class CityRepositoryImpl implements CityRepository {
 
         this.findAllBy = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("city_find_all_by")
-                .returningResultSet(FIND_ALL_BY_KEY, rowMapper);
+                .returningResultSet(FIND_ALL_BY_KEY_KEY, rowMapper);
         this.findAllByTotal = new SimpleJdbcCall(jdbcTemplate)
                 .withFunctionName("city_find_all_by_total")
                 .withReturnValue();
@@ -50,7 +50,7 @@ public class CityRepositoryImpl implements CityRepository {
 
         @SuppressWarnings("unchecked")
         List<City> cities = (List<City>) findAllBy.execute(parameters)
-                .get(FIND_ALL_BY_KEY);
+                .get(FIND_ALL_BY_KEY_KEY);
 
         log.debug("Cities: {}", cities);
         return Objects.requireNonNullElse(cities, List.of());
