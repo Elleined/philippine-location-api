@@ -1,6 +1,5 @@
-package com.pams.backend.paging;
+package com.elleined.philippine_location_api.paging;
 
-import com.elleined.philippine_location_api.paging.PageRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jspecify.annotations.Nullable;
 
