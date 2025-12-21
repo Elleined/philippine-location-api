@@ -13,6 +13,7 @@ services:
       - PORT=${PORT}
       - LOG_LEVEL=${LOG_LEVEL}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - SPRING_OPENAPI_ENABLED=${SPRING_OPENAPI_ENABLED}
     ports:
       - "${PORT}:${PORT}"
     networks:
