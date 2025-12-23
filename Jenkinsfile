@@ -7,7 +7,8 @@ pipeline {
     }
 
     environment {
-        IMAGE_BUILD = "elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER"
+        DOCKER_USERNAME = "elleined"
+        DOCKER_IMAGE_BUILD = "${DOCKER_USERNAME}/philippine-location-api:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -19,7 +20,7 @@ pipeline {
 
         stage('Building docker image') {
             steps {
-                powershell 'docker build -t \$env:IMAGE_BUILD .'
+                powershell 'docker build -t \$env:DOCKER_IMAGE_BUILD .'
             }
         }
 
@@ -28,18 +29,17 @@ pipeline {
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'docker-access-token-for-psa-pc-jenkins',
-                        usernameVariable: 'DOCKER_USERNAME',
                         passwordVariable: 'DOCKER_PASSWORD'
                     )
                 ]) {
-                    powershell 'docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD'
+                    powershell '\$DOCKER_PASSWORD | docker login -u \$env:DOCKER_USERNAME --password-stdin'
                 }
             }
         }
 
         stage('Pushing docker image') {
             steps {
-                powershell 'docker push \$env:IMAGE_BUILD'
+                powershell 'docker push \$env:DOCKER_IMAGE_BUILD'
             }
         }
     }
