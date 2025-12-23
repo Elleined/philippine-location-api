@@ -24,6 +24,20 @@ pipeline {
             }
         }
 
+        stage('Logging in to dockerhub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'docker-access-token-for-psa-pc-jenkins',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    powershell 'docker login -u elleined -p \$DOCKER_PASSWORD'
+                }
+            }
+        }
+
         stage('Pushing docker image') {
             steps {
                 powershell 'docker push \$env:IMAGE_NAME:\$env:IMAGE_TAG'
