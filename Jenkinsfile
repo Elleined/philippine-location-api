@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build the project') {
             steps {
-                powershell
+                powershell './gradlew clean build'
             }
         }
     }
