@@ -9,14 +9,14 @@ pipeline {
     stages {
         stage('Building the project') {
             steps {
-                powershell 'echo \$env:BRANCH_NAME-\$env:BRANCH_NUMBER'
+                powershell 'echo \$env:BRANCH_NAME-\$env:BUILD_NUMBER'
                 powershell 'gradle --no-daemon clean build'
             }
         }
 
         stage('Building docker images') {
             steps {
-                powershell 'docker build -t elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BRANCH_NUMBER'
+                powershell 'docker build -t elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER'
             }
         }
     }
