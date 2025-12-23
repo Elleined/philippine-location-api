@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        java 'java-25'
+        gradle 'gradle-9.2.1'
+    }
+
     stages {
         stage('Verifying git is available') {
             steps {
