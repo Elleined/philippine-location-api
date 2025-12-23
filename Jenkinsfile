@@ -6,17 +6,27 @@ pipeline {
         gradle 'gradle-9.2.1'
     }
 
+    environment {
+        IMAGE_NAME = 'elleined/philippine-location-api'
+        IMAGE_TAG = "\$env:BRANCH_NAME-\$env:BUILD_NUMBER"
+    }
+
     stages {
         stage('Building the project') {
             steps {
-                powershell 'echo \$env:BRANCH_NAME-\$env:BUILD_NUMBER'
-                powershell 'gradle --no-daemon clean build'
+                powershell 'gradle clean build'
             }
         }
 
-        stage('Building docker images') {
+        stage('Building docker image') {
             steps {
-                powershell 'docker build -t elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER .'
+                powershell 'docker build -t \$env:IMAGE_NAME:\$env:IMAGE_TAG .'
+            }
+        }
+
+        stage('Pushing docker image') {
+            steps {
+                powershell 'docker push \$env:IMAGE_NAME:\$env:IMAGE_TAG'
             }
         }
     }
@@ -24,6 +34,7 @@ pipeline {
     post {
         always {
             cleanWs()
+            powershell 'docker logout'
         }
 
         success {
