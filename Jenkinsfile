@@ -16,7 +16,7 @@ pipeline {
 
         stage('Building docker images') {
             steps {
-                powershell 'docker build -t elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER'
+                powershell 'docker build -t elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER .'
             }
         }
     }
