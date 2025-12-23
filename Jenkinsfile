@@ -7,8 +7,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'elleined/philippine-location-api'
-        IMAGE_TAG = "\$env:BRANCH_NAME-\$env:BUILD_NUMBER"
+        IMAGE_BUILD = "elleined/philippine-location-api:\$env:BRANCH_NAME-\$env:BUILD_NUMBER"
     }
 
     stages {
@@ -20,7 +19,7 @@ pipeline {
 
         stage('Building docker image') {
             steps {
-                powershell 'docker build -t \$env:IMAGE_NAME:\$env:IMAGE_TAG .'
+                powershell 'docker build -t \$env:IMAGE_BUILD .'
             }
         }
 
@@ -33,14 +32,14 @@ pipeline {
                         passwordVariable: 'DOCKER_PASSWORD'
                     )
                 ]) {
-                    powershell 'docker login -u elleined -p \$DOCKER_PASSWORD'
+                    powershell 'docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD'
                 }
             }
         }
 
         stage('Pushing docker image') {
             steps {
-                powershell 'docker push \$env:IMAGE_NAME:\$env:IMAGE_TAG'
+                powershell 'docker push \$env:IMAGE_BUILD'
             }
         }
     }
