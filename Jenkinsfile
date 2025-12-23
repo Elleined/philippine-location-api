@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'echo heelo'
                 sh 'git fetch'
-                sh 'git pull origin ${env.BRANCH_NAME}'
+                sh 'git pull origin ${env.BRANCH_NAME}  '
             }
         }
     }
