@@ -1,14 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        gradle 'gradle-9.2.1'
-    }
-
     stages {
         stage('Verifying gradle is available') {
             steps {
-                powershell 'gradle --version'
+                powershell './gradlew --version'
             }
         }
 
@@ -26,7 +22,7 @@ pipeline {
 
         stage('Building the project') {
             steps {
-                powershell 'gradle clean build'
+                powershell './gradlew clean build'
             }
         }
     }
