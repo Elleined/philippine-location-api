@@ -35,5 +35,13 @@ pipeline {
         always {
             cleanWs()
         }
+
+        success {
+            echo 'Philippine location API jenkins pipeline success'
+        }
+
+        failure {
+            echo 'Philippine location API jenkins pipeline failed'
+        }
     }
 }
