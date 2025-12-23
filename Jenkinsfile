@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Fetch and Pull Github Repository') {
             steps {
-                sh 'echo heelo'
-                sh 'git fetch'
-                sh 'git pull origin ${env.BRANCH_NAME}  '
+                powershell 'echo heelo'
+                powershell 'git fetch'
+                powershell 'git pull origin ${env.BRANCH_NAME}  '
             }
         }
     }
