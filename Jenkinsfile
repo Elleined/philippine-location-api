@@ -16,7 +16,13 @@ pipeline {
 
         stage('Verifying gradle is available') {
             steps {
-                powershell './gradlew --version'
+                powershell 'gradle --version'
+            }
+        }
+
+        stage('Verifying docker is available') {
+            steps {
+                powershell 'docker --version'
             }
         }
 
@@ -34,7 +40,7 @@ pipeline {
 
         stage('Building the project') {
             steps {
-                powershell './gradlew clean build'
+                powershell 'gradle clean build'
             }
         }
     }
