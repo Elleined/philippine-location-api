@@ -24,9 +24,9 @@ pipeline {
             }
         }
 
-        stage('Build the project') {
+        stage('Building the project') {
             steps {
-                powershell './gradlew clean build'
+                powershell 'gradle clean build'
             }
         }
     }
