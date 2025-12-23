@@ -1,12 +1,32 @@
 pipeline {
     agent any
 
+    tools {
+        gradle 'gradle-9.2.1'
+    }
+
     stages {
-        stage('Fetch and Pull Github Repository') {
+        stage('Verifying gradle is available') {
             steps {
-                powershell 'echo heelo'
+                powershell 'gradle --version'
+            }
+        }
+
+        stage('Fetching the repository') {
+            steps {
                 powershell 'git fetch'
-                powershell 'git pull origin ${env.BRANCH_NAME}  '
+            }
+        }
+
+        stage('Pulling the repository') {
+            steps {
+                powershell 'git pull origin ${env.BRANCH_NAME}'
+            }
+        }
+
+        stage('Build the project') {
+            steps {
+                powershell
             }
         }
     }
