@@ -2,6 +2,18 @@ pipeline {
     agent any
 
     stages {
+        stage('Verifying git is available') {
+            steps {
+                powershell 'git --version'
+            }
+        }
+
+        stage('Verifying java is available') {
+            steps {
+                powershell 'java --version'
+            }
+        }
+
         stage('Verifying gradle is available') {
             steps {
                 powershell './gradlew --version'
