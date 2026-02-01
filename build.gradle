@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.8'
+	id 'org.springframework.boot' version '3.5.10'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'net.ltgt.errorprone' version '4.3.0'
+	id 'net.ltgt.errorprone' version '4.2.0'
 
 }
 
@@ -35,9 +35,9 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 
 	// NullAway
-	errorprone "com.uber.nullaway:nullaway:0.12.14"
+	errorprone "com.uber.nullaway:nullaway:0.13.1"
 	implementation "org.jspecify:jspecify:1.0.0"
-	errorprone "com.google.errorprone:error_prone_core:2.45.0"
+	errorprone "com.google.errorprone:error_prone_core:2.46.0"
 
 	// Testcontainers
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
