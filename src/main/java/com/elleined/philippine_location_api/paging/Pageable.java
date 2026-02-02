@@ -40,3 +40,4 @@ public record Pageable<T>(
         return new Pageable<>(content, request, totalElements);
     }
 }
+

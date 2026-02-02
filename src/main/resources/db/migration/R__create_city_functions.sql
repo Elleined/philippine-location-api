@@ -1,12 +1,12 @@
-DROP FUNCTION IF EXISTS city_find_all_by_total;
+DROP FUNCTION IF EXISTS city_find_all_total;
 DELIMITER //
-CREATE FUNCTION city_find_all_by_total(
+CREATE FUNCTION city_find_all_total(
     region_id BIGINT,
     province_id BIGINT,
     name VARCHAR(50)
 )
 RETURNS INT DETERMINISTIC
-COMMENT 'Get total elements of city_find_all_by'
+COMMENT 'Get total elements of city_find_all'
 BEGIN
     DECLARE total_elements INT;
 
@@ -23,7 +23,7 @@ BEGIN
     FROM city c
     JOIN province p ON p.id = c.province_id AND p.id = province_id
     JOIN region r ON r.id = p.region_id AND r.id = region_id
-    WHERE c.name LIKE CONCAT('%', IFNULL(name, ""), '%');
+    WHERE c.name LIKE CONCAT(IFNULL(name, ""), '%');
 
     RETURN total_elements;
 END //

@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS baranggay_find_all_by;
+DROP PROCEDURE IF EXISTS baranggay_find_all;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS baranggay_find_all_by(
+CREATE PROCEDURE IF NOT EXISTS baranggay_find_all(
     IN region_id BIGINT,
     IN province_id BIGINT,
     IN city_id BIGINT,
@@ -37,13 +37,16 @@ BEGIN
         b.id AS id,
         b.name AS name,
         r.id AS region_id,
+        r.name AS region_name,
         p.id AS province_id,
-        b.city_id AS city_id
+        p.name AS province_name,
+        c.id AS city_id,
+        c.name AS city_name
     FROM baranggay b
     JOIN city c ON c.id = b.city_id AND c.id = city_id
     JOIN province p ON p.id = c.province_id AND p.id = province_id
     JOIN region r ON r.id = p.region_id AND r.id = region_id
-    WHERE b.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    WHERE b.name LIKE CONCAT(IFNULL(name, ""), '%')
     ORDER BY b.name ASC
     LIMIT size
     OFFSET offset;

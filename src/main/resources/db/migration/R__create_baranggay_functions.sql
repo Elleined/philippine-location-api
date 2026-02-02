@@ -1,13 +1,13 @@
-DROP FUNCTION IF EXISTS baranggay_find_all_by_total;
+DROP FUNCTION IF EXISTS baranggay_find_all_total;
 DELIMITER //
-CREATE FUNCTION IF NOT EXISTS baranggay_find_all_by_total(
+CREATE FUNCTION IF NOT EXISTS baranggay_find_all_total(
     region_id BIGINT,
     province_id BIGINT,
     city_id BIGINT,
     name VARCHAR(50)
 )
 RETURNS INT DETERMINISTIC
-COMMENT 'Get total elements of baranggay_find_all_by'
+COMMENT 'Get total elements of baranggay_find_all'
 BEGIN
     DECLARE total_elements INT;
 
@@ -29,7 +29,7 @@ BEGIN
     JOIN city c ON c.id = b.city_id AND c.id = city_id
     JOIN province p ON p.id = c.province_id AND p.id = province_id
     JOIN region r ON r.id = p.region_id AND r.id = region_id
-    WHERE b.name LIKE CONCAT('%', IFNULL(name, ""), '%');
+    WHERE b.name LIKE CONCAT(IFNULL(name, ""), '%');
 
     RETURN total_elements;
 END //

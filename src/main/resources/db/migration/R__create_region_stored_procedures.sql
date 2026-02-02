@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS region_find_all_by;
+DROP PROCEDURE IF EXISTS region_find_all;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS region_find_all_by(
+CREATE PROCEDURE IF NOT EXISTS region_find_all(
     IN name VARCHAR(50),
     IN page INT,
     IN size INT
@@ -23,7 +23,7 @@ BEGIN
         r.name AS name,
         r.description AS description
     FROM region r
-    WHERE r.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    WHERE r.name LIKE CONCAT(IFNULL(name, ""), '%')
     ORDER BY r.name ASC
     LIMIT size
     OFFSET offset;

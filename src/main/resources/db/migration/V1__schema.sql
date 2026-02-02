@@ -1,26 +1,30 @@
 CREATE TABLE IF NOT EXISTS region (
 id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
-description VARCHAR(100)
+description VARCHAR(100),
+INDEX idx_name (name)
 );
 
 CREATE TABLE IF NOT EXISTS province (
 id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 region_id BIGINT UNSIGNED NOT NULL,
-FOREIGN KEY (region_id) REFERENCES region(id)
+FOREIGN KEY (region_id) REFERENCES region(id),
+INDEX idx_region_id_name (region_id, name)
 );
 
 CREATE TABLE IF NOT EXISTS city (
 id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 province_id BIGINT UNSIGNED NOT NULL,
-FOREIGN KEY (province_id) REFERENCES province(id)
+FOREIGN KEY (province_id) REFERENCES province(id),
+INDEX idx_province_id_name (province_id, name)
 );
 
 CREATE TABLE IF NOT EXISTS baranggay (
 id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 city_id BIGINT UNSIGNED NOT NULL,
-FOREIGN KEY (city_id) REFERENCES city(id)
+FOREIGN KEY (city_id) REFERENCES city(id),
+INDEX idx_city_id_name (city_id, name)
 );

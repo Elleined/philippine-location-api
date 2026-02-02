@@ -1,7 +1,7 @@
 package com.elleined.philippine_location_api.province;
 
 import com.elleined.philippine_location_api.paging.PageRequest;
-import com.elleined.philippine_location_api.paging.Pageable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -19,12 +19,17 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
-    public Pageable<Province> getAll(Long regionId,
-                                     String name,
-                                     PageRequest request) {
+    @Cacheable(value = "province:getAll", key = "#regionId + '-' + #name + '-' + #request.page + '-' + #request.size")
+    public List<ProvinceDTO> getAll(Long regionId,
+                                    String name,
+                                    PageRequest request) {
 
-        int totalElements = provinceRepository.findAllTotal(regionId, name);
-        List<Province> provinces = provinceRepository.findAll(regionId, name, request.page(), request.size());
-        return new Pageable<>(provinces, request, totalElements);
+        return provinceRepository.findAll(regionId, name, request.page(), request.size());
+    }
+
+    @Override
+    @Cacheable(value = "province:getAllTotal", key = "#regionId + '-' + #name")
+    public int getAllTotal(Long regionId, String name) {
+        return provinceRepository.findAllTotal(regionId, name);
     }
 }

@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS city_find_all_by;
+DROP PROCEDURE IF EXISTS city_find_all;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS city_find_all_by(
+CREATE PROCEDURE IF NOT EXISTS city_find_all(
     IN region_id BIGINT,
     IN province_id BIGINT,
     IN name VARCHAR(50),
@@ -32,11 +32,13 @@ BEGIN
         c.id AS id,
         c.name AS name,
         r.id AS region_id,
-        c.province_id AS province_id
+        r.name AS region_name,
+        p.id AS province_id,
+        p.name AS province_name
     FROM city c
     JOIN province p ON p.id = c.province_id AND p.id = province_id
     JOIN region r ON r.id = p.region_id AND r.id = region_id
-    WHERE c.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    WHERE c.name LIKE CONCAT(IFNULL(name, ""), '%')
     ORDER BY c.name ASC
     LIMIT size
     OFFSET offset;

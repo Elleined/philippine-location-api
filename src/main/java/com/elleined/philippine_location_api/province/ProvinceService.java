@@ -1,11 +1,14 @@
 package com.elleined.philippine_location_api.province;
 
 import com.elleined.philippine_location_api.paging.PageRequest;
-import com.elleined.philippine_location_api.paging.Pageable;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 public interface ProvinceService {
-    Pageable<Province> getAll(@NotNull Long regionId,
-                              String name,
-                              @NotNull PageRequest request);
+    List<ProvinceDTO> getAll(@NotNull Long regionId,
+                             String name,
+                             @NotNull PageRequest request);
+
+    int getAllTotal(@NotNull Long regionId, String name);
 }

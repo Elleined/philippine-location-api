@@ -1,6 +1,6 @@
-DROP PROCEDURE IF EXISTS province_find_all_by;
+DROP PROCEDURE IF EXISTS province_find_all;
 DELIMITER //
-CREATE PROCEDURE IF NOT EXISTS province_find_all_by(
+CREATE PROCEDURE IF NOT EXISTS province_find_all(
     IN region_id BIGINT,
     IN name VARCHAR(50),
     IN page INT,
@@ -26,10 +26,11 @@ BEGIN
     SELECT
         p.id AS id,
         p.name AS name,
-        p.region_id AS region_id
+        r.id AS region_id,
+        r.name AS region_name
     FROM region r
     JOIN province p ON r.id = p.region_id AND p.region_id = region_id
-    WHERE p.name LIKE CONCAT('%', IFNULL(name, ""), '%')
+    WHERE p.name LIKE CONCAT(IFNULL(name, ""), '%')
     ORDER BY p.name ASC
     LIMIT size
     OFFSET offset;

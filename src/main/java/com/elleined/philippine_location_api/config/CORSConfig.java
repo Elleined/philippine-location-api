@@ -2,6 +2,7 @@ package com.elleined.philippine_location_api.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,7 +19,7 @@ public class CORSConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(allowedOrigins)
-                .allowedMethods("GET")
+                .allowedMethods(HttpMethod.GET.name())
                 .maxAge(3600); // 1 hour
     }
 }
