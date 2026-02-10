@@ -29,6 +29,8 @@ services:
     depends_on:
       prod-pla-mysql-server:
         condition: service_healthy
+      prod-pla-redis-server:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "wget", "--spider", "http://${CONTAINER_NAME}:${PORT}/${CONTEXT_PATH}/actuator/health" ]
       interval: 30s
@@ -62,6 +64,7 @@ services:
   prod-pla-redis-server:
     image: redis:${REDIS_IMAGE_TAG}
     container_name: ${REDIS_CONTAINER_NAME}
+    restart: always
     environment:
       - TZ=Asia/Manila
       - REDIS_PASSWORD=${REDIS_PASSWORD}
